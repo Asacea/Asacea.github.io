@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Zhang Qianyu">
+
+
+
+
+
+
+
+<title>线性表LinearList | space</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Space.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/tech/">tech</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/Me/">AboutMe</a>
+              </li> 
+                   
+          
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/C/">
+                            C
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/Algorithm/">
+                            Algorithm
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/data-structure/">
+                            data structure
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                线性表LinearList
+            
+            
+        </div>
+        <span class="post-date">
+            Oct 18, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h1 id="第二章：线性表"><a href="#第二章：线性表" class="headerlink" title="第二章：线性表"></a>第二章：线性表</h1><h2 id="逻辑结构"><a href="#逻辑结构" class="headerlink" title="逻辑结构"></a>逻辑结构</h2><ol>
+<li>特点：<ul>
+<li>同一性：由同类元素组成</li>
+<li>有穷性：由有限个元素组成</li>
+<li>有序性：相邻元素之间存在序偶关系</li>
+</ul>
+</li>
+</ol>
+<h2 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h2><ol>
+<li><p>顺序储存结构</p>
+<p>这里的顺序表其实就是数组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_SIZE 100</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    ElemType elem[MAX_SIZE];</span><br><span class="line">    <span class="type">int</span> last;    <span class="comment">//记录线性表中最后一个元素在elem数组 当中的位置，空表置为-1，因此可以得出，线性表当中元素的实际个数=last+1，即顺序表的长度；</span></span><br><span class="line">&#125;SeqList;</span><br></pre></td></tr></table></figure>
+
+<p>ai在线性表当中的序号为i，在顺序表对应的数组elem中的下标为i-1</p>
+</li>
+<li><p>定义变量的两种方法：</p>
+<ul>
+<li>SeqList类型的变量：<code>SeqList L;</code>。访问i号元素：<code>L.elem[i-1]</code>;最后一个元素的下标:<code>L.last</code>;顺序表的长度：<code>L.last+1</code></li>
+<li>指针变量：<code>SeqList L1,*L;   L=&amp;L1</code> 。访问i号元素：<code>L-&gt;elem[i-1]</code>;顺序表的长度：<code>L-&gt;last+1</code></li>
+</ul>
+</li>
+<li><p>基本运算</p>
+<ul>
+<li><p><strong>查找操作</strong>：</p>
+<ol>
+<li><p>按序号查找：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">GetData</span><span class="params">(SeqList L,<span class="type">int</span> i)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;=L.last)</span><br><span class="line">        <span class="keyword">return</span> L.elem[i<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按内容查找：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Locate</span><span class="params">(SeqList L,ElemType e)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>((i&lt;=L.last)&amp;&amp;(L.elem[i]!=e))</span><br><span class="line">        i++;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;=L.last)</span><br><span class="line">        <span class="keyword">return</span> i+<span class="number">1</span>;  <span class="comment">//返回其序号</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;   <span class="comment">//返回空置符-1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该算法的时间复杂度为O(n)</p>
+</li>
+</ol>
+</li>
+<li><p><strong>插入操作</strong>：</p>
+<p>其实就是插入数组操作,先找到插入位置，然后将该位置后的元素都依次向后移动</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> OK 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ERROR 0</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">InsList</span><span class="params">(SeqList *L,<span class="type">int</span> i,ElemType e)</span>&#123;</span><br><span class="line">    <span class="type">int</span> k;</span><br><span class="line">    <span class="keyword">if</span>((i&lt;<span class="number">1</span>)||(i&gt;L-&gt;last+<span class="number">2</span>))</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    <span class="keyword">if</span>(L-&gt;last&gt;=MAX_SIZA<span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;no space&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(k=L-&gt;last;k&gt;=i<span class="number">-1</span>;k--)<span class="comment">//倒序</span></span><br><span class="line">        L-&gt;elem[k+<span class="number">1</span>]=L-&gt;elem[k];</span><br><span class="line">    L-&gt;elem[i<span class="number">-1</span>]=e;</span><br><span class="line">    L-&gt;last++;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>算法分析：E为在长度为n的表中插入一个元素所需移动元素的平均次数。假设插入 任何位置的可能性相当，E&#x3D;n&#x2F;2</p>
+</li>
+<li><p>删除操作：</p>
+<p>将目标位置的所有元素一次向前依次移动一位</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">DelList</span><span class="params">(SeqList *L,<span class="type">int</span> i,ElemType *e)</span>&#123;</span><br><span class="line">    <span class="type">int</span> k;</span><br><span class="line">    <span class="keyword">if</span>((i&lt;<span class="number">1</span>)||(i&gt;L-&gt;last+<span class="number">2</span>))</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    *e=L-&gt;elem[i<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">for</span>(k=i;k&lt;=L-&gt;last;k++)</span><br><span class="line">        L-&gt;elem[k<span class="number">-1</span>]=L-&gt;elem[k];</span><br><span class="line">     L-&gt;last--;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>E&#x3D;(n-1)&#x2F;2</p>
+</li>
+<li><p><strong>合并运算</strong>：</p>
+<p>将两个顺序表合并成一个顺序表，所有顺序表元素都是非递减有序排列（即单调不减）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">mergeList</span><span class="params">(SeqList *LA,SeqList *LB,SeqList *LC)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i,j,k;</span><br><span class="line">    i=<span class="number">0</span>;</span><br><span class="line">    j=<span class="number">0</span>;</span><br><span class="line">    k=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=LA-&gt;last&amp;&amp;j&lt;=LB-&gt;last)&#123;</span><br><span class="line">        <span class="keyword">if</span>(LA-&gt;elem[i]&lt;=LB-&gt;elem[j])&#123;</span><br><span class="line">            LC-&gt;elem[k]=LA-&gt;elem[i];</span><br><span class="line">            k++,i++;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            LC-&gt;elem[k]=LB-&gt;elem[j];</span><br><span class="line">            k++,j++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//当某一表当中的元素有剩余的时候，将剩下的元素直接赋给LC</span></span><br><span class="line">    <span class="keyword">while</span> (i&lt;=LA-&gt;last)&#123;</span><br><span class="line">        LC-&gt;elem[k]=LA-&gt;elem[i];</span><br><span class="line">        i++,k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (j&lt;=LB-&gt;last)&#123;</span><br><span class="line">        LC-&gt;elem[k]=LA-&gt;elem[j];</span><br><span class="line">        j++,k++;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="线性表的链式存储"><a href="#线性表的链式存储" class="headerlink" title="线性表的链式存储"></a>线性表的链式存储</h2><h3 id="单链表（略讲）"><a href="#单链表（略讲）" class="headerlink" title="单链表（略讲）"></a><strong>单链表</strong>（略讲）</h3><ul>
+<li><p>结点的组成部分：数据域，指针域</p>
+</li>
+<li><p>头指针H指向首结点，最后一个结点的指针指向null</p>
+<img src="/images/blog_images/Basic_Algorithms/1.jpg" style="zoom:50%;" />
+</li>
+<li><p>单链表的存储结构：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;Node,*LinkList;</span><br><span class="line"><span class="comment">//LinkList与Node*同为指针类型的变量，这两种类型是等价的</span></span><br><span class="line"><span class="comment">//用LinkList指向头指针，Node*指向结点</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="2">
+<li><p>单链表的基本运算（细讲）</p>
+<ul>
+<li><p>初始化单链表</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitList</span><span class="params">(LinkList *L)</span>&#123;<span class="comment">//L是指向单链表的头结点的指针</span></span><br><span class="line">    *L=(LinkList)mallco(sizeOf(Node));</span><br><span class="line">    (*L)-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>建立单链表:</p>
+<ol>
+<li><p>头插法建立单链表</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">CreateFromHead</span><span class="params">(LinkList L)</span>&#123;</span><br><span class="line">    Node *s;</span><br><span class="line">    <span class="type">char</span> c;</span><br><span class="line">    <span class="type">int</span> flag=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(flag)&#123;</span><br><span class="line">        c=getchar();</span><br><span class="line">        <span class="keyword">if</span>(c!=<span class="string">&#x27;$&#x27;</span>)&#123;<span class="comment">//$是终止符</span></span><br><span class="line">            s=(Node*)mallco(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">            s-&gt;data=c;</span><br><span class="line">            s-&gt;next=L-&gt;next;</span><br><span class="line">            L-&gt;next=s;</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">            flag=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>尾插法建立链表</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">     <span class="type">void</span> <span class="title function_">CreateFromTail</span><span class="params">(LinkList L)</span>&#123;</span><br><span class="line">         Node *r,*s;</span><br><span class="line">         <span class="type">int</span> flag=<span class="number">1</span>;</span><br><span class="line">         r=L;</span><br><span class="line">         <span class="keyword">while</span>(flag)&#123;</span><br><span class="line">             c=getchar();</span><br><span class="line">             <span class="keyword">if</span>(c!=<span class="string">&#x27;$&#x27;</span>)&#123;</span><br><span class="line">                 s=(Node*)mallco(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">                 s-&gt;data=c;</span><br><span class="line">                 r-&gt;next=s;</span><br><span class="line">                 r=s;</span><br><span class="line">             &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                 flag=<span class="number">0</span>;</span><br><span class="line">                 r-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- 查找</span><br><span class="line"></span><br><span class="line">  <span class="number">1.</span> 按序号查找:</span><br><span class="line"></span><br><span class="line">     若找到，返回该结点的位置，若没有找到，则返回<span class="literal">NULL</span></span><br><span class="line"></span><br><span class="line">     ```c</span><br><span class="line">     Node* <span class="title function_">GetData</span><span class="params">(LinkList L,<span class="type">int</span> i)</span>&#123;</span><br><span class="line">         <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">         Node *p;</span><br><span class="line">         <span class="keyword">if</span>(i&lt;=<span class="number">0</span>)    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">         p=L;</span><br><span class="line">         <span class="keyword">while</span>((p-&gt;next!=<span class="literal">NULL</span>)&amp;&amp;(j&lt;i))&#123;</span><br><span class="line">             p=p-&gt;next;</span><br><span class="line">             j++;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">if</span>(i==j)    <span class="keyword">return</span> p;</span><br><span class="line">         <span class="keyword">else</span>    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按值查找</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Node *<span class="title function_">Locate</span><span class="params">(LinkList L,ElemType key)</span>&#123;</span><br><span class="line">    Node *p;</span><br><span class="line">    p=L-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;data!=key)</span><br><span class="line">            p=p-&gt;next;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这两个算法的平均时间复杂度&#x3D;O(n)</p>
+</li>
+</ol>
+</li>
+<li><p>求单链表的长度</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">ListLength</span><span class="params">(LinkList L)</span>&#123;</span><br><span class="line">    Node *p;</span><br><span class="line">    p=L-&gt;next;</span><br><span class="line">    j=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>算法复杂度O(n)</p>
+</li>
+<li><p>单链表的插入操作</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InsList</span><span class="params">(LinkList L,<span class="type">int</span> i,ElemType e)</span>&#123;</span><br><span class="line">    Node *pre,*s;</span><br><span class="line">    <span class="type">int</span> k=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;=<span class="number">0</span>) <span class="keyword">return</span> ERROR;</span><br><span class="line">    pre=L;</span><br><span class="line">    <span class="keyword">while</span>(pre!=<span class="literal">NULL</span>&amp;&amp;k&lt;i<span class="number">-1</span>)&#123;</span><br><span class="line">        pre=pre-&gt;next;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(pre==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    s=(Node*)mallco(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    s-&gt;data=e;</span><br><span class="line">    s-&gt;next=pre-&gt;next;</span><br><span class="line">    pre-&gt;next=s;</span><br><span class="line">    retuen OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>单链表的删除操作</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//删除第i个元素，并将删除的元素保存到变量*e当中</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">DelList</span><span class="params">(LinkList L,<span class="type">int</span> i,ElemType e)</span>&#123;</span><br><span class="line">    Node *pre ,*r;</span><br><span class="line">    <span class="type">int</span> k;</span><br><span class="line">    pre=L;</span><br><span class="line">    k=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (pre-&gt;next!=<span class="literal">NULL</span>&amp;&amp;k&lt;i<span class="number">-1</span>)&#123;<span class="comment">//*注意与插入不同之处,确保pre-&gt;next有元素，避免出现空指针</span></span><br><span class="line">        pre=pre-&gt;next;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;<span class="comment">//p是第i-1个</span></span><br><span class="line">    <span class="keyword">if</span>(pre-&gt;next==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    r=pre-&gt;next;</span><br><span class="line">    pre-&gt;next=r-&gt;next;</span><br><span class="line">    *e=r-&gt;data;</span><br><span class="line">    <span class="built_in">free</span>(r);</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并两个单链表:</p>
+<p>有两个单链表，元素都是非递减有序排列，合并成单链表c也是非递减有序排列</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">LinkList <span class="title function_">MergeLinkList</span><span class="params">(LinkList LA,LinkList LB)</span>  <span class="comment">//这里的两个变量都是头结点</span></span><br><span class="line">&#123;</span><br><span class="line">    Node *pa,*pb;</span><br><span class="line">    LinkList LC,r;</span><br><span class="line">    pa=LA-&gt;next;</span><br><span class="line">    pb=LB-&gt;next;</span><br><span class="line">    LC=LA;</span><br><span class="line">    LC-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">    r=LC;  <span class="comment">//r初始值为LC，且始终指向LC的表尾</span></span><br><span class="line">    <span class="keyword">while</span>(pa!=<span class="literal">NULL</span>&amp;&amp;pb!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(pa-&gt;data&lt;=pb-&gt;data)&#123;</span><br><span class="line">            r-&gt;next=pa;</span><br><span class="line">            r=pa;</span><br><span class="line">            pa=pa-&gt;next;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            r-&gt;next=pb;</span><br><span class="line">            r=pb;</span><br><span class="line">            pb=pb-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   <span class="keyword">if</span>(pa!=<span class="literal">NULL</span>) r-&gt;next=pa;</span><br><span class="line">   <span class="keyword">else</span> r-&gt;next=pb; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/images/blog_images/Basic_Algorithms/2.png" style="zoom:10%;" /></li>
+</ul>
+</li>
+</ol>
+<h3 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h3><ol>
+<li><p>定义方法：将单链表的最后一个结点的指针域，由指向NULL改为指向头结点</p>
+</li>
+<li><p>判断当前结点p是否是尾结点<code>p!=L</code>或<code>p-&gt;next!=L</code></p>
+</li>
+<li><p>分类：带头结点和带尾指针rear</p>
+</li>
+<li><p>初始化(带头结点)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitCLinkList</span><span class="params">(LinkList *CL)</span>&#123;</span><br><span class="line">    *CL=(LinkList)mallo(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    (*CL)-&gt;next=*CL;<span class="comment">//建立空的循环单链表</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>建立循环单链表:</p>
+<p>假设已经进行了初始化</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">CreateCLinkList</span><span class="params">(LinkList CL)</span><span class="comment">//CL是头指针</span></span><br><span class="line">&#123;</span><br><span class="line">    Node *rear,*s;</span><br><span class="line">    <span class="type">char</span> c;</span><br><span class="line">    rear=CL;</span><br><span class="line">    c=getchar();</span><br><span class="line">    <span class="keyword">while</span>(c!=<span class="string">&#x27;$&#x27;</span>)&#123;</span><br><span class="line">        s=(Node*)mallco(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">        s-&gt;data=c;</span><br><span class="line">        rear-&gt;next=s;</span><br><span class="line">        rear=s;</span><br><span class="line">        c=getchar();</span><br><span class="line">    &#125;</span><br><span class="line">    rear-&gt;next=CL;<span class="comment">//循环</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并两个循环列表</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//LA表示头指针</span></span><br><span class="line">LinkList <span class="title function_">merge_CLists</span><span class="params">(LinkList LA,LinkList LB)</span>&#123;</span><br><span class="line">    Node *p,*q;</span><br><span class="line">    p=LA;</span><br><span class="line">    q=LB;</span><br><span class="line">    <span class="keyword">while</span>(p-&gt;next!=LA)</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(q-&gt;next!=LB)</span><br><span class="line">        q=q-&gt;next;</span><br><span class="line">    q-&gt;next=LA;       <span class="comment">//LB的尾连接到LA的头</span></span><br><span class="line">    p-&gt;next=LB-&gt;next; <span class="comment">//LA的尾连接到LB的头</span></span><br><span class="line">    <span class="built_in">free</span>(LB);</span><br><span class="line">    <span class="keyword">return</span> LA;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//LA表示尾指针</span></span><br><span class="line">LinkList <span class="title function_">merge_CLists</span><span class="params">(LinkList LA,LInkList LB)</span>&#123;</span><br><span class="line">    Node *p;</span><br><span class="line">    p=LA-&gt;next;  <span class="comment">//LA的头</span></span><br><span class="line">    LA-&gt;next=LB-&gt;next-&gt;next; <span class="comment">//LA的头连接到LB的尾</span></span><br><span class="line">    <span class="built_in">free</span>(LB-&gt;next);<span class="comment">//释放LB的头结点</span></span><br><span class="line">    LB-&gt;next=p;<span class="comment">//将LA的头结点接连到LB的尾部</span></span><br><span class="line">    <span class="keyword">return</span> LB;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h3><ol>
+<li><p>结构定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">DNode</span>&#123;</span></span><br><span class="line">    Elemtype data;</span><br><span class="line">    sruct DNode *prior,*next;</span><br><span class="line">&#125;DNode,*DoubleList;</span><br></pre></td></tr></table></figure>
+
+<img src="/images/blog_images/Basic_Algorithms/3.png" style="zoom:50%;" />
+</li>
+<li><p><code>p-&gt;prior-&gt;next==p==p-&gt;next-&gt;prior</code></p>
+</li>
+<li><p>插入操作：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">DlinkIns</span><span class="params">(DoubleList L,<span class="type">int</span> i,ElemType e)</span>&#123;</span><br><span class="line">    DNode *s,*p;</span><br><span class="line">    <span class="type">int</span> k=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;=<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    p=L;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>&amp;&amp;k&lt;i<span class="number">-1</span>)&#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> intERROR;</span><br><span class="line">    s=(DNode*)mallkco(<span class="keyword">sizeof</span>(DNode));</span><br><span class="line">    <span class="keyword">if</span>(s)&#123;</span><br><span class="line">        s-&gt;data=e;</span><br><span class="line">        s-&gt;prior=p-&gt;prior;</span><br><span class="line">        p-&gt;prior-&gt;next=s;</span><br><span class="line">        s-&gt;next=p;</span><br><span class="line">        p-&gt;prior=s;</span><br><span class="line">        <span class="keyword">return</span> OK;</span><br><span class="line">    &#125;<span class="keyword">else</span> </span><br><span class="line">        <span class="keyword">return</span> ERROR; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/images/blog_images/Basic_Algorithms/4.jpg" style="zoom:20%;" />
+</li>
+<li><p>双向链表的删除操作</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">DLinkDel</span><span class="params">(DoubleList L,<span class="type">int</span> i,ElemType *e)</span>&#123;</span><br><span class="line">    DNode *p;</span><br><span class="line">    <span class="type">int</span> k=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;=<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    p=L;</span><br><span class="line">    <span class="keyword">while</span>(p-&gt;next!=<span class="literal">NULL</span>&amp;&amp;k&lt;i<span class="number">-1</span>)&#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p-&gt;next==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    *e=p-&gt;data;</span><br><span class="line">    p-&gt;prior-&gt;next=p-&gt;next;</span><br><span class="line">    p-&gt;next-&gt;prior=p-&gt;prior;</span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/images/blog_images/Basic_Algorithms/5.png" style="zoom:40%;" />
+</li>
+<li><p>静态链表</p>
+</li>
+</ol>
+<h3 id="应用："><a href="#应用：" class="headerlink" title="应用："></a>应用：</h3><h4 id="一元多项式"><a href="#一元多项式" class="headerlink" title="一元多项式"></a>一元多项式</h4><ol>
+<li><p>表示：p[i]表示i次幂的系数</p>
+</li>
+<li><p>储存：</p>
+<ul>
+<li><p>顺序储存：p[i]表示i次幂的系数</p>
+</li>
+<li><p>链式存储：</p>
+<ol>
+<li><p>结构：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Polynode</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> coef;   <span class="comment">//系数</span></span><br><span class="line">    <span class="type">int</span> <span class="built_in">exp</span>;    <span class="comment">//指数</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Polynode</span> *<span class="title">next</span>;</span><span class="comment">//指针</span></span><br><span class="line">&#125;Polynode,*Polylist;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>尾插法创建链表：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Polylist <span class="title function_">PolyCreate</span><span class="params">()</span>&#123;</span><br><span class="line">    Polynode *head,*rear;</span><br><span class="line">    <span class="type">int</span> coef,<span class="built_in">exp</span>;</span><br><span class="line">    head=(Polynode*)mallco(<span class="keyword">sizeof</span>(Polynode));</span><br><span class="line">    rear=head;   <span class="comment">//rear始终指向尾结点</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d,%d&quot;</span>,&amp;coef,&amp;<span class="built_in">exp</span>);</span><br><span class="line">    <span class="keyword">while</span>(c!=<span class="number">0</span>)&#123;</span><br><span class="line">        s=(Polynode*)mallco(<span class="keyword">sizeof</span>(Polynode));</span><br><span class="line">        s-&gt;coef=coef;</span><br><span class="line">        s-&gt;<span class="built_in">exp</span>=<span class="built_in">exp</span>;</span><br><span class="line">        rear-&gt;next=s;</span><br><span class="line">        rear=s;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d,%d&quot;</span>,&amp;coef,&amp;<span class="built_in">exp</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    rear-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> (head);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>一元多项式相加运算</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">PolyAdd</span><span class="params">(Polylist polya,Polylist polyb)</span>&#123;</span><br><span class="line">    Polynode *p,*q,*tail,*temp;</span><br><span class="line">    <span class="type">int</span> sum;</span><br><span class="line">    p=polya-&gt;next;</span><br><span class="line">    q=polyb-&gt;next;</span><br><span class="line">    tail=polya;     <span class="comment">//tail是一个始终指向最终表的尾部的指针</span></span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>&amp;&amp;q!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;<span class="built_in">exp</span>&lt;q-&gt;<span class="built_in">exp</span>)&#123;</span><br><span class="line">            tail-&gt;next=p;</span><br><span class="line">            tail=p;</span><br><span class="line">            p=p-&gt;next;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(p-&gt;<span class="built_in">exp</span>==q-&gt;<span class="built_in">exp</span>)&#123;</span><br><span class="line">            sum==p-&gt;coef+q-&gt;coef;</span><br><span class="line">            <span class="keyword">if</span>(sum!=<span class="number">0</span>)&#123;</span><br><span class="line">                p-&gt;coef=sum;</span><br><span class="line">                tail-&gt;next=p;</span><br><span class="line">                tail=p;</span><br><span class="line">                p=p-&gt;next;</span><br><span class="line">                temp=q;</span><br><span class="line">                q=q-&gt;next;        <span class="comment">//都是先传到后面一个以后再free</span></span><br><span class="line">                <span class="built_in">free</span>(temp);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                temp=q;</span><br><span class="line">                q=q-&gt;next;</span><br><span class="line">                <span class="built_in">free</span>(temp);</span><br><span class="line">                temp=p;</span><br><span class="line">                p=p-&gt;next;</span><br><span class="line">                <span class="built_in">free</span>(temp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">             tail-&gt;next=q;</span><br><span class="line">             tail=q;</span><br><span class="line">             q=q-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p!=<span class="literal">NULL</span>)</span><br><span class="line">        tail-&gt;next=p;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        tail-&gt;next=q;</span><br><span class="line">    <span class="built_in">free</span>(polyb);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h4 id="顺序表删除指定元素"><a href="#顺序表删除指定元素" class="headerlink" title="顺序表删除指定元素"></a>顺序表删除指定元素</h4><ul>
+<li>删除所有x</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">delx</span><span class="params">(SeqList *L,ElemType x)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=L-&gt;last)&#123;</span><br><span class="line">        <span class="keyword">if</span>(L-&gt;elem[i]!=x)&#123;</span><br><span class="line">            L-&gt;elem[j]=L-&gt;elem[i];</span><br><span class="line">            i++,j++;</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">            i++;</span><br><span class="line">    &#125;</span><br><span class="line">    L-&gt;last=j<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="单链表的就地逆置"><a href="#单链表的就地逆置" class="headerlink" title="单链表的就地逆置"></a>单链表的就地逆置</h4><ul>
+<li>逻辑：读取后一位并用头插法插入</li>
+<li>图解： <img src="/images/blog_images/Basic_Algorithms/6.jpg" style="zoom:50%;" /></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">ReverseeList</span><span class="params">(LinkList L)</span>&#123;</span><br><span class="line">    Node *p,*q;</span><br><span class="line">    p=L-&gt;next;</span><br><span class="line">    L-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        q=p-&gt;next;</span><br><span class="line">        p-&gt;next=L-&gt;next;  <span class="comment">// 1</span></span><br><span class="line">        L-&gt;next=p;       <span class="comment">// 2</span></span><br><span class="line">        p=q;         <span class="comment">// 3 </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="单链表的部分快排"><a href="#单链表的部分快排" class="headerlink" title="单链表的部分快排"></a>单链表的部分快排</h4><ul>
+<li>读取第一个数据data，后续比它大的放在该结点的前面，比它小的放在后面</li>
+<li>逻辑：比它小的结点头插，比它大的不管</li>
+<li>图解：见逆置</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">vod <span class="title function_">changelist</span><span class="params">(LinkList L)</span>&#123;</span><br><span class="line">    Node *a,*p,*q;</span><br><span class="line">    <span class="keyword">if</span>(L-&gt;next==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    a=L-&gt;next;</span><br><span class="line">    p=a-&gt;next;</span><br><span class="line">    q=p-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;data&gt;=a-&gt;data)&#123;</span><br><span class="line">            p=q;</span><br><span class="line">            q=q-&gt;next;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            p-&gt;next=L-&gt;next;</span><br><span class="line">            L-&gt;next=p;</span><br><span class="line">            p=q;</span><br><span class="line">            q=q-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="单链表二进制加一"><a href="#单链表二进制加一" class="headerlink" title="单链表二进制加一"></a>单链表二进制加一</h4><ul>
+<li>建表：第一个结点存储二进制数的最高位，依次存储，最后一个结点存储最低位。</li>
+<li>实现加1运算：从最低位往前，找到第一个0的位次所在结点，变成1；从该结点向后，所有的1都变成0，</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">BinAdd</span><span class="params">(LinkList L)</span>&#123;</span><br><span class="line">    Node *p,*goal,*s;</span><br><span class="line">    p=L-&gt;next;</span><br><span class="line">    r=L;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;data==<span class="number">0</span>)   <span class="comment">//找到最后一个为0的位置</span></span><br><span class="line">            r=p;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(r!=L)</span><br><span class="line">        r-&gt;data=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        s=(Node*)mallco(<span class="keyword">sizeof</span>(Node));  <span class="comment">//申请新结点存放最高进位</span></span><br><span class="line">        s-&gt;data=<span class="number">1</span>;   <span class="comment">//赋值为1</span></span><br><span class="line">        s-&gt;next=L-&gt;next;    <span class="comment">//将新结点头插入</span></span><br><span class="line">        L-&gt;next=s;</span><br><span class="line">        r=s;</span><br><span class="line">    &#125;</span><br><span class="line">    r=r-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(r!=<span class="literal">NULL</span>)&#123;<span class="comment">//将后面的所有结点赋值为0</span></span><br><span class="line">        r-&gt;data=<span class="number">0</span>;</span><br><span class="line">        r=r-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/10/18/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97Stack-Queue/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/10/18/Basic-Algorithms/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                © Zhang Qianyu | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+    
+
+  </body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Zhang Qianyu">
+
+
+
+
+
+
+
+<title>Array-Table | space</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Space.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/tech/">tech</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/Me/">AboutMe</a>
+              </li> 
+                   
+          
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/C/">
+                            C
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/Algorithm/">
+                            Algorithm
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/data-structure/">
+                            data structure
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                Array-Table
+            
+            
+        </div>
+        <span class="post-date">
+            Oct 18, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h1 id="第五章：数组与广义表"><a href="#第五章：数组与广义表" class="headerlink" title="第五章：数组与广义表"></a>第五章：数组与广义表</h1><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><ol>
+<li>可以把二位数组看作一个线性表，就相当于矩阵</li>
+<li>这里的数组下标统一从1开始：</li>
+</ol>
+<h2 id="特殊矩阵的压缩存储（重点）"><a href="#特殊矩阵的压缩存储（重点）" class="headerlink" title="特殊矩阵的压缩存储（重点）"></a>特殊矩阵的压缩存储（重点）</h2><ol>
+<li>地址计算P129<ul>
+<li>一维数组的地址计算：<code>Loc(A[i])=Loc(A[1])+(i-1)*size</code></li>
+<li>二维数组的地址计算：<code>Loc(A[i][j])=Loc(A[1][1])+((i-1)*n+(j-1))*size</code></li>
+<li>三维数组的地址计算：<code>Loc(A[i][j][k])=Loc(A[1][1][1])+((i-1)*n*m+(j-1)*n+(k-1))*size</code></li>
+<li>以此类推</li>
+</ul>
+</li>
+</ol>
+<h2 id="规律分布的特殊矩阵"><a href="#规律分布的特殊矩阵" class="headerlink" title="规律分布的特殊矩阵"></a>规律分布的特殊矩阵</h2><ol>
+<li><p>三角矩阵：</p>
+<ul>
+<li><img src="/images/blog_images/Basic_Algorithms/14.png" style="zoom:20%;" />
+</li>
+<li><p>上三角矩阵：i&lt;j时，Aij&#x3D;0</p>
+<p>存储地址：<code>Loc[i,j]=Loc[1,1]+(i*(i-1)/2+j-1)</code></p>
+</li>
+<li><p>下三角矩阵：i&gt;j时，Aij&#x3D;0</p>
+</li>
+</ul>
+</li>
+<li><p>带状矩阵：</p>
+<ul>
+<li>三对角带状矩阵<img src="/images/blog_images/Basic_Algorithms/15.png" style="zoom:50%;" /></li>
+<li>存储地址：<code>Loc(A[i][j])=Loc(A[1][1])+(3*(i-1)-1+(j-i+1))*size</code></li>
+</ul>
+</li>
+<li><p>稀疏矩阵：指矩阵中绝大多数元素为0的矩阵</p>
+<ul>
+<li><p>稀疏矩阵的三元组表示法：</p>
+<ol>
+<li><p>基本类型结构：行、列、值。相当于只存储了非零元素的位置和值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 1000</span></span><br><span class="line"><span class="keyword">typedef</span>  <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> row,col;<span class="comment">//该非零元素的行列下标</span></span><br><span class="line">    ElementType e;<span class="comment">//该非零元素的值</span></span><br><span class="line">&#125;Triple;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    Triple data[MAXSIZE+<span class="number">1</span>];<span class="comment">//非零元素的三元组表，data[0]未用</span></span><br><span class="line">    <span class="type">int</span> m,n,len;   <span class="comment">//m是行数，n是列数，len是元素总个数</span></span><br><span class="line">&#125;TSMatrix;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>矩阵的经典转置运算</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">TransMatrix</span><span class="params">(ElementType source[m][n],ElementType dest[n][m])</span>&#123;</span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;m;i++)</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            dest[j][i]=source[i][j];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用三元组表实现稀疏矩阵的转置</p>
+<p>先将原三元组表的行列互换，然后将互换后的三元组表，按照行下标的大小以递增顺序排列</p>
+<ul>
+<li><p>方法一：列序递增转置方法（双重循环）:</p>
+<p>·按照被转置矩阵三元组表A的列序（即转置后三元组表 B的行序）递增的顺序进行转置，并依次送入转置后矩阵的三元组表B中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">TransTSMatrix</span><span class="params">(TSMatrix A,TSMatrix *B)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i,j,k;</span><br><span class="line">    B-&gt;m=A.n;</span><br><span class="line">    B-&gt;n=A.m;</span><br><span class="line">    B-&gt;len=A.len;</span><br><span class="line">    <span class="keyword">if</span>(B-&gt;len&gt;<span class="number">0</span>)&#123;</span><br><span class="line">        j=<span class="number">1</span>;<span class="comment">//辅助计数器，记录转置后的元素在三元组表B中的下标值</span></span><br><span class="line">        <span class="keyword">for</span>(k=<span class="number">1</span>;k&lt;=A.n;k++)</span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;=A.len;i++)</span><br><span class="line">                <span class="keyword">if</span>(A.data[i].col=k)&#123;</span><br><span class="line">                    B-&gt;data[j].row=A.data[i].col;</span><br><span class="line">                    B-&gt;data[j].col=A.data[i].row;</span><br><span class="line">                    B-&gt;data[j].e=A.data[i].e;</span><br><span class="line">                    j++;</span><br><span class="line">                &#125;</span><br><span class="line">    &#125;       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法二：一次定位快速转置法：</p>
+<ol>
+<li>设置两个数组<ul>
+<li><code>num[col]</code>:存放三元组表A中的第col列非零元素的个数</li>
+<li><code>position[col]</code>:存放转置前三元组表A中第col列中第一个非零元素在三元组表B中的存储位置</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">FastTransTSMatrix</span><span class="params">(TSMatrix A,TSMatrix *B)</span>&#123;</span><br><span class="line">    <span class="type">int</span> col,t,p,q;</span><br><span class="line">    <span class="type">int</span> num[MAXSIZE],position[MAXSIZE];</span><br><span class="line">    B-&gt;len=A.len;</span><br><span class="line">    B-&gt;n=A.m;</span><br><span class="line">    B-&gt;m=A.n;</span><br><span class="line">    <span class="keyword">if</span>(B-&gt;len)&#123;</span><br><span class="line">        <span class="keyword">for</span>(col=<span class="number">1</span>;col&lt;=A.n;col++)</span><br><span class="line">            num[col]=<span class="number">0</span>;   <span class="comment">//初始化为0</span></span><br><span class="line">        <span class="keyword">for</span>(t=<span class="number">1</span>;t&lt;=A.len;t++)</span><br><span class="line">            num[A.data[t].col]++;  <span class="comment">//统计每一列的非零元素的个数</span></span><br><span class="line">        position[<span class="number">1</span>]=<span class="number">1</span>;  <span class="comment">//第一列的非零元素的存储位置是1</span></span><br><span class="line">        <span class="keyword">for</span>(col=<span class="number">2</span>;col&lt;=A.n)</span><br><span class="line">            position[col]=position[col<span class="number">-1</span>]+num[col<span class="number">-1</span>]; <span class="comment">//第col列中第一个非零元素在B.data[]中的正确位置</span></span><br><span class="line">        <span class="keyword">for</span>(p=<span class="number">1</span>;p&lt;=A.len;p++)&#123;</span><br><span class="line">            col=A.data[p].col;</span><br><span class="line">            q=position[col];<span class="comment">//找到第col列第一个非零元素的正确位置</span></span><br><span class="line">            B-&gt;data[q].row=A.data[p].col;</span><br><span class="line">            B-&gt;data[q].col=A.data[p].row;</span><br><span class="line">            B-&gt;data[q].e=A.data[p].e;</span><br><span class="line">            position[col]++;    <span class="comment">//指向第col列下一个非零元素的正确位置</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>稀疏矩阵的链式存储结构：十字链表</p>
+<ol>
+<li><p>结构：每一个非零元素用一个结点表示，该节点除了(row,col,value)以外，还有两个链域</p>
+</li>
+<li><p>类型定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">OLNode</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> row,col;</span><br><span class="line">    ElementType value;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">OLNode</span> *<span class="title">right</span>;</span>   <span class="comment">//用于连接同一行中的下一个非零元素</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">OLNode</span> *<span class="title">down</span>;</span>    <span class="comment">//用于连接同一列中的下一个非零元素</span></span><br><span class="line">&#125;OLNode,*OLink;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    OLink *row_head,*col_head; <span class="comment">//行、列链表的头指针向量</span></span><br><span class="line">    <span class="type">int</span> m,n,len;         <span class="comment">//稀疏矩阵的行数、列数、非零元素的个数</span></span><br><span class="line">&#125;CrossList;</span><br></pre></td></tr></table></figure>
+
+<img src="/images/blog_images/Basic_Algorithms/16.jpg" style="zoom:67%;" />
+</li>
+<li><p>十字链表的算法实现：</p>
+<ul>
+<li><p>建立十字链表的步骤：</p>
+<ol>
+<li>读入稀疏矩阵的行数列数和非零元素个数</li>
+<li>动态申请行、列链表的头指针向量</li>
+<li>逐个读入非零元素，分别插入行、列链表</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">CreateList</span><span class="params">(CrossList *M)</span>&#123;</span><br><span class="line">    <span class="type">int</span> m,n,len,i,j;</span><br><span class="line">    ElementType e;</span><br><span class="line">    OLink p,q;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入行数，列数，非零元素个数：&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d,%d,%d&quot;</span>,&amp;m,&amp;n,&amp;len);</span><br><span class="line">    M-&gt;m=m;</span><br><span class="line">    M-&gt;n=n;</span><br><span class="line">    M-&gt;len=len;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(!(M-&gt;row_head=(OLink*)<span class="built_in">malloc</span>((m+<span class="number">1</span>)*<span class="keyword">sizeof</span>(OLink))))</span><br><span class="line">        <span class="built_in">exit</span>(OVERFLOW);</span><br><span class="line">    <span class="keyword">if</span>(!(M-&gt;col_head=(OLink*)<span class="built_in">malloc</span>((n+<span class="number">1</span>)*<span class="keyword">sizeof</span>(OLink))))</span><br><span class="line">        <span class="built_in">exit</span>(OVERFLOW);</span><br><span class="line">    <span class="comment">//初始化行、列的头指针向量，使各行、列链表为空</span></span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;m;i++)</span><br><span class="line">        M-&gt;row_head[i]=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">        M-&gt;col_head[j]=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="comment">//循环读入行、列、值</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">scanf</span>(&amp;i,&amp;j,&amp;e);i!=<span class="number">-1</span>;<span class="built_in">scanf</span>(&amp;i,&amp;j,&amp;e))&#123;</span><br><span class="line">        <span class="comment">//创建结点</span></span><br><span class="line">        <span class="keyword">if</span>(!p=(OLNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(OLNode)))</span><br><span class="line">            <span class="built_in">exit</span>(OVERFLOW);</span><br><span class="line">        p-&gt;row=i;</span><br><span class="line">        p-&gt;col=j;</span><br><span class="line">        p-&gt;value=e;</span><br><span class="line">        <span class="comment">//先考虑行</span></span><br><span class="line">        <span class="comment">//如果所在行为空</span></span><br><span class="line">        <span class="keyword">if</span>(M-&gt;row_head[i]==<span class="literal">NULL</span>)</span><br><span class="line">            M-&gt;row_head[i]=p;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            q=M-&gt;row_head[i];</span><br><span class="line">            <span class="comment">//寻找插入的位置</span></span><br><span class="line">            <span class="keyword">while</span>(q-&gt;right!=<span class="literal">NULL</span>&amp;&amp;q-&gt;right-&gt;col&lt;j)</span><br><span class="line">                q=q-&gt;right;</span><br><span class="line">            <span class="comment">//q-&gt;right是目标位置</span></span><br><span class="line">            p-&gt;right=q-&gt;right;</span><br><span class="line">            q-&gt;right=p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//同理，考虑列</span></span><br><span class="line">        <span class="keyword">if</span>(M-&gt;col_head[j]==<span class="literal">NULL</span>)</span><br><span class="line">            M-&gt;col_head[j]=p;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            q=M-&gt;col_head[i];</span><br><span class="line">            <span class="comment">//寻找插入的位置</span></span><br><span class="line">            <span class="keyword">while</span>(q-&gt;down!=<span class="literal">NULL</span>&amp;&amp;q-&gt;down-&gt;row&lt;j)</span><br><span class="line">                q=q-&gt;down;</span><br><span class="line">            <span class="comment">//q-&gt;down是目标位置</span></span><br><span class="line">            p-&gt;down=q-&gt;down;</span><br><span class="line">            q-&gt;down=p;</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/10/18/Binary-Tree/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/10/18/String/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                © Zhang Qianyu | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+    
+
+  </body>
+</html>

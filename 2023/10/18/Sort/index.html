@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Zhang Qianyu">
+
+
+
+
+
+
+
+<title>Sort | space</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Space.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/tech/">tech</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/Me/">AboutMe</a>
+              </li> 
+                   
+          
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/C/">
+                            C
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/Algorithm/">
+                            Algorithm
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/data-structure/">
+                            data structure
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                Sort
+            
+            
+        </div>
+        <span class="post-date">
+            Oct 18, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h1 id="第九章：排序"><a href="#第九章：排序" class="headerlink" title="第九章：排序"></a>第九章：排序</h1><h2 id="排序的基本概念"><a href="#排序的基本概念" class="headerlink" title="排序的基本概念"></a>排序的基本概念</h2><ol>
+<li>稳定排序和不稳定排序：关键词的领先关系在排序前后是否发生改变</li>
+</ol>
+<h2 id="插入类排序"><a href="#插入类排序" class="headerlink" title="插入类排序"></a>插入类排序</h2><p>给定某个数列，将它排序插入</p>
+<h3 id="直接插入排序（略）"><a href="#直接插入排序（略）" class="headerlink" title="直接插入排序（略）"></a>直接插入排序（略）</h3><p>类似于数组的排序,按照关键词排序的规则找到插入位置后，将后面的元素都向移动一位</p>
+<p>时间复杂度：O(n^2)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置监视哨r[0],作用是1.防止越界；2.暂存需插入的数据</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">InsSort</span><span class="params">(RecordType r[],<span class="type">int</span> length)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">2</span>;i&lt;=length;i++)&#123; <span class="comment">//从i=2开始，因为第一个数据自动看成一个有序子数列</span></span><br><span class="line">        r[<span class="number">0</span>]=r[i];  <span class="comment">//将待插入的数据放入监视哨r[0]中</span></span><br><span class="line">        j=i<span class="number">-1</span>;  <span class="comment">//j指向已经排号的有序数列的最后一位</span></span><br><span class="line">        <span class="keyword">while</span>(r[<span class="number">0</span>].key&lt;r[j].key)&#123;   <span class="comment">//寻找插入位置</span></span><br><span class="line">            r[j+<span class="number">1</span>]=r[j];</span><br><span class="line">            j=j<span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        r[j+<span class="number">1</span>]=r[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="折半插入排序法"><a href="#折半插入排序法" class="headerlink" title="折半插入排序法"></a>折半插入排序法</h3><p>时间复杂度：O(n^2)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">BinSort</span><span class="params">(RecordType r[],<span class="type">int</span> length)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    <span class="type">int</span> x;<span class="comment">//插入数据</span></span><br><span class="line">    <span class="type">int</span> low,high,mid;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;=length;i++)&#123;</span><br><span class="line">        x=r[i];</span><br><span class="line">        low=<span class="number">1</span>;</span><br><span class="line">        high=i<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(low&lt;=high)&#123;   <span class="comment">//寻找插入位置</span></span><br><span class="line">            mid=(low+high)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(x.key&lt;r[mid].key)</span><br><span class="line">                high=mid<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                low=mid+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(j=i<span class="number">-1</span>;j&gt;=low;--j)   <span class="comment">//将插入位置以后的元素后移</span></span><br><span class="line">            r[j+<span class="number">1</span>]=r[j];</span><br><span class="line">        r[low]=x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h3><ol>
+<li>适用范围：关键词序列基本有序且个数较少</li>
+<li>方法：将待排序的关键词分为若干个较小的子序列，对子序列进行直接插入排序</li>
+<li>时间复杂度：O(n^1.5)</li>
+<li><img src="/images/blog_images/Basic_Algorithms/50.png" style="zoom:50%;" /></li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">ShellInsert</span><span class="params">(RecordType r[],<span class="type">int</span> length;<span class="type">int</span> delta)</span>&#123;  <span class="comment">//delta是增量</span></span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>+delta;i&lt;length;i++)</span><br><span class="line">        <span class="keyword">if</span>(r[i].key&lt;r[i-delta].key)&#123;</span><br><span class="line">            r[<span class="number">0</span>]=r[i];</span><br><span class="line">            <span class="keyword">for</span>(j=i-delta;j&gt;<span class="number">0</span>&amp;&amp;r[<span class="number">0</span>].key&lt;r[j].key;j-=delta)</span><br><span class="line">                r[j+delta]=r[j];</span><br><span class="line">            r[delta+j]=r[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">ShellSort</span><span class="params">(RecordType r[],<span class="type">int</span> length;<span class="type">int</span> delta[],<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        ShellInsert(r,length,delta[i]); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="交换类排序法"><a href="#交换类排序法" class="headerlink" title="交换类排序法"></a>交换类排序法</h2><h3 id="冒泡排序法"><a href="#冒泡排序法" class="headerlink" title="冒泡排序法"></a>冒泡排序法</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">bubbleSort</span><span class="params">(<span class="type">int</span> a[],<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i,j,x;</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;n-i;j++)</span><br><span class="line">        <span class="keyword">for</span>(i=n<span class="number">-2</span>;i&gt;=j;i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[i]&gt;a[i+<span class="number">1</span>])&#123;</span><br><span class="line">                x=a[i];</span><br><span class="line">                a[i]=a[i+<span class="number">1</span>];</span><br><span class="line">                a[i+<span class="number">1</span>]=x;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">BubbleSort</span><span class="params">(<span class="type">int</span> a[],<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i,j,x;</span><br><span class="line">    <span class="type">int</span> flag=<span class="number">1</span>;</span><br><span class="line">    j=n<span class="number">-2</span>;<span class="comment">//j是本遍扫描的终点下标，初始值为n-2</span></span><br><span class="line">    <span class="keyword">while</span>(flag)&#123;</span><br><span class="line">        flag=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;=j;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[i]&gt;a[i+<span class="number">1</span>])&#123;</span><br><span class="line">                x=a[i];</span><br><span class="line">                a[i]=a[i+<span class="number">1</span>];</span><br><span class="line">                a[i+<span class="number">1</span>]=x;</span><br><span class="line">                flag=<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;  </span><br><span class="line">        j--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>思路P329,时间复杂度：O(n^2)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">QkSort</span><span class="params">(RecordType r[],<span class="type">int</span> low,<span class="type">int</span> high)</span>&#123;</span><br><span class="line">    <span class="type">int</span> pos;</span><br><span class="line">    <span class="keyword">if</span>(low&lt;high)&#123;</span><br><span class="line">        pos=QKPass(r,low,high);</span><br><span class="line">        QKSort(r,low,pos<span class="number">-1</span>);</span><br><span class="line">        QKSort(r,pos+<span class="number">1</span>,high);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">QKPass</span><span class="params">(RecordType r[],<span class="type">int</span> low,<span class="type">int</span> high)</span>&#123;</span><br><span class="line">    <span class="type">int</span> x=r[low];</span><br><span class="line">    <span class="keyword">while</span>(low&lt;high)&#123;</span><br><span class="line">        <span class="keyword">while</span>(low&lt;high&amp;&amp;r[high].key&gt;=x.key)</span><br><span class="line">            high--;</span><br><span class="line">        <span class="keyword">if</span>(low&lt;high)&#123;</span><br><span class="line">            r[low]=r[high];</span><br><span class="line">            low++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(low&lt;high&amp;&amp;r[low].key&lt;x.key)</span><br><span class="line">            low++;</span><br><span class="line">        <span class="keyword">if</span>(low&lt;high)&#123;</span><br><span class="line">            r[high]=r[low];</span><br><span class="line">            high--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    r[low]=x;</span><br><span class="line">    <span class="keyword">return</span>  low;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="选择类排序法"><a href="#选择类排序法" class="headerlink" title="选择类排序法"></a>选择类排序法</h2><h3 id="简单选择排序法（略）"><a href="#简单选择排序法（略）" class="headerlink" title="简单选择排序法（略）"></a>简单选择排序法（略）</h3><p>比较次数为n(n-1)&#x2F;2</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">SelectSort</span><span class="params">(RecordType r[],<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">        k=i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>;j&lt;=n;j++)<span class="comment">//从i以后的无需序列中选出关键词最小的记录k</span></span><br><span class="line">            <span class="keyword">if</span>(r[j].key&lt;r[k].key)</span><br><span class="line">                k=j;</span><br><span class="line">        <span class="keyword">if</span>(k!=i)&#123;</span><br><span class="line">            x=r[i];</span><br><span class="line">            r[i]=r[k];</span><br><span class="line">            r[k]=x;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="树形选择排序（下次有时间再写）"><a href="#树形选择排序（下次有时间再写）" class="headerlink" title="树形选择排序（下次有时间再写）"></a>树形选择排序（下次有时间再写）</h3><p>又称锦标赛排序，即两两比较</p>
+<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><ol>
+<li><p>定义：排序过程中将向量中存储的数据看成一颗完全二叉树，任意结点r[i]的左孩子是r[2i]，右孩子是r[2i+1]</p>
+</li>
+<li><p>堆定义：完全二叉树满足条件：<code>r[i].key&gt;=r[2i].key&amp;&amp;r[i].key&gt;=r[2i+1].key</code>——大根堆</p>
+<p><code>r[i].key&lt;=r[2i].key&amp;&amp;r[i].key&lt;=r[2i+1].key</code>——小根堆</p>
+</li>
+<li><p>重建堆</p>
+<p>将根顶记录改变后，从上到下调整堆</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">sift</span><span class="params">(RecordType r[],<span class="type">int</span> k,<span class="type">int</span> m)</span>&#123;   <span class="comment">//设，r[k.m]是以r[k]为根的完全二叉树，大根堆,m是堆中最后一个记录</span></span><br><span class="line">    r[<span class="number">0</span>]=r[k];<span class="comment">//暂存根记录</span></span><br><span class="line">    j=<span class="number">2</span>*k;<span class="comment">//j指向根结点的左孩子</span></span><br><span class="line">    finished=FALSE;</span><br><span class="line">    <span class="keyword">while</span>(j&lt;=m&amp;&amp;!finished)&#123;</span><br><span class="line">        <span class="keyword">if</span>(j&lt;m&amp;&amp;r[j].key&lt;r[j+<span class="number">1</span>].key)<span class="comment">//左孩子大于右孩子</span></span><br><span class="line">            j++;<span class="comment">//即，选出最大的孩子去和根结点比较</span></span><br><span class="line">        <span class="keyword">if</span>(r[<span class="number">0</span>].key&gt;=r[j].key)</span><br><span class="line">            finished=TRUE;<span class="comment">//结束筛选</span></span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            r[k]=r[j];</span><br><span class="line">            k=j;</span><br><span class="line">            j=<span class="number">2</span>*k;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    r[k]=r[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>建初堆</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">crt_heap</span><span class="params">(RecordType r[],<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=n/<span class="number">2</span>;i&gt;=<span class="number">1</span>;i--)<span class="comment">//自最后一个非叶结点：位置为【n/2】进行筛选建堆</span></span><br><span class="line">        sift(r,i,n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>堆排序的算法实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">HeapSort</span><span class="params">(RecordType r[],<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    crt_heap(r,n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&gt;=<span class="number">2</span>;i--)&#123;</span><br><span class="line">        r[<span class="number">0</span>]=r[<span class="number">1</span>];</span><br><span class="line">        r[<span class="number">1</span>]=r[i];</span><br><span class="line">        r[i]=r[<span class="number">0</span>];<span class="comment">//将堆顶记录和堆中最后一个记录互换</span></span><br><span class="line">        sift(r,<span class="number">1</span>,i<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="归并排序法"><a href="#归并排序法" class="headerlink" title="归并排序法"></a>归并排序法</h2><ol>
+<li><p>基本思想：将两个或者两个以上的有序表合并成一个新的有序表</p>
+</li>
+<li><p>空间复杂度</p>
+</li>
+<li><pre><code class="c"> //已知r1[low..mid]和r1[mid+1..high]分别按关键词有序排列，将它们合成存放在r2[low..high]中
+void Merge(RecordType r1[],int low,int mid,int high,RecordType r[])&#123;
+    int i,j,k;
+    i=low;
+    j=mid+1;
+    k=low;
+    while(i&lt;=mid&amp;&amp;j&lt;=high)&#123;
+        if(r1[i].key&lt;=r1[j].key)&#123;
+            r[k]=r1[i];
+            i++;
+        &#125;else&#123;
+            r[k]=r1[j];
+            j++;
+        &#125;
+        k++;
+    &#125;
+    while(i&lt;=mid)&#123;
+        r[k]=r1[i];
+        k++;
+        i++;
+    &#125;
+    while(j&lt;=high)&#123;
+        r[k]=r1[j];
+        k++;
+        j++;
+    &#125;
+&#125;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```C</span><br><span class="line">void MergeSort(RecordType r1[],int low,int high,RecordType r[])&#123;</span><br><span class="line">    RecordType *r2;</span><br><span class="line">    r2=(RecordType*)malloc(sizeof(RecordType)*(high-low+1));</span><br><span class="line">    if(low==high)</span><br><span class="line">        r[low]=r1[low];</span><br><span class="line">    else&#123;</span><br><span class="line">        mid=(low+high)/2;</span><br><span class="line">        MergeSort(r1,low,mid,r2);</span><br><span class="line">        MergeSort(r1,mid+1,high,r2);</span><br><span class="line">        Merge(r2,low,mid,high,r);</span><br><span class="line">    &#125;</span><br><span class="line">    free(r2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ol>
+<h2 id="分配类排序"><a href="#分配类排序" class="headerlink" title="分配类排序"></a>分配类排序</h2><h3 id="多关键字排序-不考"><a href="#多关键字排序-不考" class="headerlink" title="多关键字排序(不考)"></a>多关键字排序(不考)</h3><ol>
+<li><img src="/images/blog_images/Basic_Algorithms/51.png" style="zoom:50%;" /></li>
+<li><img src="/images/blog_images/Basic_Algorithms/52.png" style="zoom:50%;" /></li>
+</ol>
+<h3 id="链式基数排序"><a href="#链式基数排序" class="headerlink" title="链式基数排序"></a>链式基数排序</h3><ol>
+<li><img src="/images/blog_images/Basic_Algorithms/53.png" style="zoom:50%;" />	
+</li>
+<li><pre><code class="c">#define RADIX 10//元素个数
+#define KEY_SIZE 6
+#define LIST_SIZE 20
+typedef int KeyType;
+typedef struct&#123;
+    KeyType keys[KEY_SIZE];//子关键字数组
+    OtherType other_data;
+    int next;
+&#125;RecordType;
+typedef struct&#123;
+    RecordType r[LIST_SIZE+1];//r[0]为头结点
+    int length;
+    int keynum;
+&#125;SLinkList;
+typedef int PVector[RADIX];
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3. 链式基数排序算法</span><br><span class="line"></span><br><span class="line">   ```c</span><br><span class="line">   /*本算法按照第i位的关键字key[i]建立RADIX个队列，同一个队列中记录的key[i]相同，</span><br><span class="line">   f[j]和e[j]分别指向队列中的第一个和最后一个，f[j]=0表示是空队列*/</span><br><span class="line">   void Distribute(RecordType r[],int i,PVector f,PVector e)&#123;</span><br><span class="line">       int j;</span><br><span class="line">       for(j=0;j&lt;=RADIX-1;j++)</span><br><span class="line">           f[i]=0;</span><br><span class="line">       int p=r[0].next;//p指向链表中的第一个记录</span><br><span class="line">       while(p!=0)&#123;</span><br><span class="line">           j=Order(r[p].key[i]);</span><br><span class="line">           if(f[j]==0) </span><br><span class="line">               f[j]=p;</span><br><span class="line">           else</span><br><span class="line">               r[e[j]].next=p;</span><br><span class="line">           e[j]=p;</span><br><span class="line">           p=r[p].next;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   void Collect(RecordType r[],PVector f,PVector e)&#123;</span><br><span class="line">       int j=0;</span><br><span class="line">       while(f[j]==0) j++;//找到第一个非空队列</span><br><span class="line">       r[0].next=f[j];</span><br><span class="line">       t=e[j];</span><br><span class="line">       while(j&lt;RADIX-1)&#123;</span><br><span class="line">           j++;</span><br><span class="line">           while((j&lt;RADIX-1)&amp;&amp;(f[j]==0))   j++;//找下一个非空队列；</span><br><span class="line">           if(f[j]!=0)&#123;</span><br><span class="line">               r[t].next=f[j];</span><br><span class="line">               t=e[j];</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       r[t].next=0;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   void RadixSort(RecordType r[],int n,int d)&#123;</span><br><span class="line">       int  //eeeeee没写完，下次一定</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ol>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/10/18/Search/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                © Zhang Qianyu | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+    
+
+  </body>
+</html>

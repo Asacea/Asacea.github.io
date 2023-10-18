@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Zhang Qianyu">
+
+
+
+
+
+
+
+<title>Graph | space</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Space.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/tech/">tech</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/Me/">AboutMe</a>
+              </li> 
+                   
+          
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/C/">
+                            C
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/Algorithm/">
+                            Algorithm
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/data-structure/">
+                            data structure
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                Graph
+            
+            
+        </div>
+        <span class="post-date">
+            Oct 18, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h1 id="第七章：图"><a href="#第七章：图" class="headerlink" title="第七章：图"></a>第七章：图</h1><h2 id="图的定义"><a href="#图的定义" class="headerlink" title="图的定义"></a>图的定义</h2><ol>
+<li>图之间的关系是任意的，多对多的网状数据结构，离散数学的序偶</li>
+<li>基本术语<ul>
+<li>有向图，无向图，弧</li>
+<li>完全图</li>
+<li>子图</li>
+<li>邻接点</li>
+<li>度</li>
+<li>权和网：带权的图称为网</li>
+<li>路径长度：路径上经过的弧或边的数目；回路或环：第一个顶点和最后一个顶点相同；简单路径：路径中的顶点各不相同</li>
+<li>连通图（无向图）：图中任意两个顶点之间都有路径可以连接；强连通图（有向图）</li>
+</ul>
+</li>
+</ol>
+<h2 id="图的存储结构"><a href="#图的存储结构" class="headerlink" title="图的存储结构"></a>图的存储结构</h2><h3 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h3><ol>
+<li><p>邻接矩阵表示法</p>
+<p>思想：n个顶点，构建n*n的矩阵。有权图，相连则赋权，反之则为正无穷；无权图：相连则为1，反之则为0</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_VERTEX_NUM 20   <span class="comment">//最多顶点个数</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INFINITY  32768    <span class="comment">//表示极大值，无穷</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> &#123;</span>DG,DN,UDG,UDN&#125; GraphKind;  <span class="comment">//图的种类，分别为有向图DG，有向网DN，无向图UDG，无向网UDN</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> VertexData;  <span class="comment">//假设顶点数据为字符型,相当于顶点的名字</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ArcNode</span>&#123;</span></span><br><span class="line">    AdjType adj;  <span class="comment">// 无权图：0或1表示是否有连线；有权图：权值或者INFINITY</span></span><br><span class="line">    OtherInfo info;</span><br><span class="line">&#125;ArcNode;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    VertexData vertex[MAX_VERTEX_NUM];  <span class="comment">//顶点向量,也就是顶点的编号</span></span><br><span class="line">    ArcNode arcs[MAX_VERTEX_NUM][MAX_VERTEX_NUM]; <span class="comment">//邻接矩阵</span></span><br><span class="line">    <span class="type">int</span> vexnum,arcnum;  <span class="comment">//图的顶点数和弧数</span></span><br><span class="line">    GraphKind kind;   <span class="comment">//图的种类标志</span></span><br><span class="line">&#125;AdjMatrix;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>存储空间：可以使用特殊矩阵的压缩存储法，无向图值存储下三角，有向图存储全部</p>
+</li>
+<li><p>运算</p>
+<ul>
+<li><p>邻接矩阵表示法创建有向网</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//求顶点位置的函数</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">LocateVertex</span><span class="params">(AdjMaxtrix *G,VertexData v)</span>&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>,k;</span><br><span class="line">    <span class="keyword">for</span>(k=<span class="number">0</span>;k&lt;G-&gt;vexnum;k++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(G-&gt;vertex[k]==v)&#123;</span><br><span class="line">            j=k;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">CreateDN</span><span class="params">(AdjMatrix *G)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i,j,k,weight;</span><br><span class="line">    VertexData v1,v2;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;plz enter :vexnum,arcnum&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d,%d&quot;</span>,&amp;G-&gt;vexnum,&amp;G-&gt;arcnum);  <span class="comment">//确定有权网的顶点数混合弧数</span></span><br><span class="line">    <span class="comment">//初始化矩阵</span></span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;G-&gt;vexnum;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;G-&gt;vexnum;j++)&#123;</span><br><span class="line">            G-&gt;arc[i][j].adj=INFINNTY;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//初始化顶点</span></span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;G-&gt;vexnum;i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%c&quot;</span>,&amp;G-&gt;vextex[i]);<span class="comment">//输入顶点编号，输入顺序决定了顶点在图中的位置</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="keyword">for</span>(k=<span class="number">0</span>;k&lt;G-&gt;arcnum;k++)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;plz enter:顶点，顶点，权值&quot;</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%c,%c,%d&quot;</span>,&amp;v1,&amp;v2,&amp;weight);<span class="comment">//输入一条弧的两个顶点和一个</span></span><br><span class="line">        i=LocateVertex(G,v1);</span><br><span class="line">        j=LocateVertex(G,v2);</span><br><span class="line">        G-&gt;arc[i][j]=weight;</span><br><span class="line">    &#125;</span><br><span class="line">    G-&gt;kind=DN;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h3 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h3><ol>
+<li><p>在邻接表当中的每个结点建立一个带头结点的边表，边表中链式存储该结点连接的顶点（无顺序）；表头结点表：所有顶点的序号和头指针组成的单链表</p>
+<img src="/images/blog_images/Basic_Algorithms/34.png" style="zoom:40%;" />
+</li>
+<li><p>存储结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_VERTEX_NUM 20</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span>&#123;</span>DG,DN,UDG,UDN&#125; GraphKind;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ArcNode</span>&#123;</span> <span class="comment">//建立边表结构</span></span><br><span class="line">    <span class="type">int</span> adjvex;<span class="comment">//顶点在vertex[MAX_VERTEX_NUM]的Index</span></span><br><span class="line">    sruct ArcNode *nextarc;</span><br><span class="line">    OtherInfo info;</span><br><span class="line">&#125;ArcNode;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">VertexNode</span>&#123;</span> <span class="comment">//顶点结点</span></span><br><span class="line">    VertexData data;  <span class="comment">//顶点编号</span></span><br><span class="line">    ArcNode *firstarc;<span class="comment">//指向第一个边</span></span><br><span class="line">&#125;VertexNode;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    VertexNode vertex[MAX_VERTEX_NUM];<span class="comment">//顺序表存储顶点</span></span><br><span class="line">    <span class="type">int</span> vexnum,arcnum;</span><br><span class="line">    GraphKind kind;</span><br><span class="line">&#125;AdjList;</span><br></pre></td></tr></table></figure>
+
+<p>注意：对于有向图，想要快捷地获得顶点的度，可以建立逆邻接表</p>
+</li>
+</ol>
+<h3 id="十字链表"><a href="#十字链表" class="headerlink" title="十字链表"></a>十字链表</h3><ol>
+<li><p>十字链表的优势是可以直接得出弧数</p>
+</li>
+<li><p>存储结构<img src="/images/blog_images/Basic_Algorithms/35.png" style="zoom:50%;" /></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_VERTEX_NUM 20</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span>&#123;</span>DG,DN,UDG,UDN&#125; GrapKind;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ArcNode</span>&#123;</span> <span class="comment">//弧结点</span></span><br><span class="line">    <span class="type">int</span> tailvex,headvex; <span class="comment">//弧头弧尾结点的Index</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ArcNode</span> *<span class="title">hlink</span>,*<span class="title">tlink</span>;</span><span class="comment">//hlink指向与该弧的弧头相同的下一条弧,同理tlink指向同弧尾</span></span><br><span class="line">&#125;ArcNode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">VertexNode</span>&#123;</span> <span class="comment">//顶点结点</span></span><br><span class="line">    VertexData data;</span><br><span class="line">    ArcNode *firstin,*firstout;</span><br><span class="line">&#125;VertexNode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    VertexNode vertex[MAX_VERTEX_NUM];</span><br><span class="line">    <span class="type">int</span> vexnum,arcnum;</span><br><span class="line">    GraphKind kind;</span><br><span class="line">&#125;OrthList;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建图的十字链表</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">CrtOrthList</span><span class="params">(OrthList *G)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i,j,k;</span><br><span class="line">    <span class="type">char</span> vt,vh;</span><br><span class="line">    ArcNode *p;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;plz enter:vexnum,arcnum&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d,%d&quot;</span>,&amp;G-&gt;vexnum,&amp;G-&gt;arcnum);</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;G-&gt;vexnum;i++)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;plz enter:VertexData&quot;</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%c&quot;</span>,&amp;G-&gt;vexnum[i].data);</span><br><span class="line">        G-&gt;vertex[i].firstin=<span class="literal">NULL</span>;</span><br><span class="line">        G-&gt;vertex[i].firstout=<span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(k=<span class="number">0</span>;k&lt;G-&gt;arcnum;k++)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;plz enter:vertexTail,vertexHead&quot;</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%c,%c&quot;</span>,&amp;vt,&amp;vh);</span><br><span class="line">        i=LocateVertex(G,vt);</span><br><span class="line">        j=LocateVertex(G,vh);</span><br><span class="line">        p=alloc(<span class="keyword">sizeof</span>(ArcNode));</span><br><span class="line">        p-&gt;tailvex=i;</span><br><span class="line">        p-&gt;headver=j;</span><br><span class="line">        p-&gt;tlink=G-&gt;vertex[i].firstout;</span><br><span class="line">        G-&gt;vertex[i].firstout=p;</span><br><span class="line">        p-&gt;hlink=G-&gt;vertex[j].firstin;</span><br><span class="line">        G-&gt;vertex[i].firstin=p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="多重链表-不考"><a href="#多重链表-不考" class="headerlink" title="多重链表 (不考)"></a>多重链表 (不考)</h3><p>P222</p>
+<h2 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h2><p>根本思想：在每个顶点处设立一个访问标志，即为图设置一个访问标志数组：visited[n]，用于标志顶点是否被访问过</p>
+<h3 id="深度优先搜索"><a href="#深度优先搜索" class="headerlink" title="深度优先搜索"></a>深度优先搜索</h3><ol>
+<li><p>1）从图中某个顶点v0出发，首先访问v0。</p>
+<p>2）依次以v0的未被访问的邻接点为出发点，深度优先搜索图，直至图中所有与v有路径相通的顶点都被访问。</p>
+<p>3）n若此时图中还有顶点未被访问，则另选图中一个未被访问的顶点作为起始点，重复上述深度优先搜索过程，直至图中所有顶点均被访问过为止。 </p>
+</li>
+<li><p>深度优先搜索</p>
+<p>- </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//先遍历图</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> True 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> False 0</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Error -1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> OK 1</span></span><br><span class="line"><span class="type">int</span> visited[MAX_VERTEX_NUM];</span><br><span class="line"><span class="comment">//对图进行深度优先搜索</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">TraverseGraph</span><span class="params">(Graph g)</span>&#123;</span><br><span class="line">    <span class="type">int</span> vi;</span><br><span class="line">    <span class="keyword">for</span>(vi=<span class="number">0</span>;vi&lt;g.vexnum;vi++)</span><br><span class="line">        visited[vi]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(vi=<span class="number">0</span>;vi&lt;g.vexnum;vi++)</span><br><span class="line">        <span class="keyword">if</span>(!visited[vi])</span><br><span class="line">            DepthFirstSearch(g,vi);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//深度优先遍历v0所在的联通子图</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">DepthFirstSearch</span><span class="params">(Graph g,<span class="type">int</span> v0)</span>&#123;</span><br><span class="line">    visit(v0);</span><br><span class="line">    visited[v0]=True;</span><br><span class="line">    w=FirstAdjVertex(g,v0);<span class="comment">//获得当前顶点的第一个邻接点的序号</span></span><br><span class="line">    <span class="keyword">while</span>(w!=<span class="number">-1</span>)<span class="comment">//当邻接点存在</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(!visited[w])<span class="comment">//如果邻接点未被访问</span></span><br><span class="line">            DepthFirstSearch(g,w);</span><br><span class="line">        w=NextAdjVertex(g,v0,w);<span class="comment">//找到下一个邻接点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//FirstAdjVertex，NextAdjVertex函数的具体实现由图的存储结构来决定</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>DFS</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//邻接矩阵表达</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">DepthFirstSearch</span><span class="params">(AdjMatrix g,<span class="type">int</span> v0)</span>&#123;</span><br><span class="line">    visit(v0);</span><br><span class="line">    visited[v0]=True;</span><br><span class="line">    <span class="keyword">for</span>(vj=<span class="number">0</span>;vj&lt;g.vexnum;vj++)</span><br><span class="line">        <span class="keyword">if</span>(!visited[vj]&amp;&amp;g.arcs[v0][vj].adj==<span class="number">1</span>)<span class="comment">//若邻接点vj未被访问</span></span><br><span class="line">            DepthFirstSearch(g,vj);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//邻接表表示</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">DepthFirstSearch</span><span class="params">(AdjList g,<span class="type">int</span> v0)</span>&#123;</span><br><span class="line">    visit(v0);</span><br><span class="line">    visited[v0]=True;</span><br><span class="line">    ArcNode *p;</span><br><span class="line">    p=g.vertex[v0].firstarc;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!visited[p-&gt;adjvex])</span><br><span class="line">            DepthFirstSearch(g,p-&gt;adjvex);</span><br><span class="line">        p=p-&gt;nextarc;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用非递归过程实现深度优先搜索</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">DFS1</span><span class="params">(Graph G,<span class="type">int</span> v0)</span>&#123;</span><br><span class="line">    <span class="type">int</span> v,w;</span><br><span class="line">    InitStack(&amp;S);</span><br><span class="line">    visit(v0);</span><br><span class="line">    visited[v0]=True;</span><br><span class="line">    Push(&amp;S,v0);</span><br><span class="line">    <span class="keyword">while</span>(!IsEmpty(&amp;S))&#123;</span><br><span class="line">        Pop(&amp;S,&amp;v);</span><br><span class="line">        <span class="keyword">if</span>(!visited[v])&#123;</span><br><span class="line">            visit(v);</span><br><span class="line">            visited[v]=True;</span><br><span class="line">            w=FirstAdjVertex(g,v);</span><br><span class="line">            <span class="keyword">while</span>(w!=<span class="number">-1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(!visited[w])</span><br><span class="line">                    Push(&amp;S,w);</span><br><span class="line">                w=NextAdjVertex(g,v,w);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>广度优先搜索</p>
+<p>类似于树的层次遍历</p>
+<img src="/images/blog_images/Basic_Algorithms/36.png" style="zoom:33%;" />
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">BreadthFirstSearch</span><span class="params">(Graph g,<span class="type">int</span> v0)</span>&#123;</span><br><span class="line">    <span class="comment">//广度优先搜索图g中v0所在的连通子图</span></span><br><span class="line">    visit(v0);</span><br><span class="line">    visited[v0]=True;<span class="comment">//将该结点标记</span></span><br><span class="line">    InitQueue(&amp;Q);<span class="comment">//初始化队列</span></span><br><span class="line">    EnterQueue(&amp;Q,v0);<span class="comment">//将v0进入队列</span></span><br><span class="line">    <span class="keyword">while</span>(!Empty(Q))&#123;</span><br><span class="line">        DeleteQueue(&amp;Q,&amp;v);<span class="comment">//队头元素v出队</span></span><br><span class="line">        w=FirstAdjVertex(g,v);<span class="comment">//v的第一个邻接点</span></span><br><span class="line">        <span class="keyword">while</span>(w!=<span class="number">-1</span>)&#123; <span class="comment">//全部遍历头元素邻接点</span></span><br><span class="line">            <span class="keyword">if</span>(!visited[w])&#123; <span class="comment">//如果该邻接点未被访问过</span></span><br><span class="line">                visit(w);</span><br><span class="line">                visited[w]=True;<span class="comment">//访问并标记该邻接点</span></span><br><span class="line">                EnterQueue(&amp;Q,w);<span class="comment">//将该结点入队</span></span><br><span class="line">            &#125;</span><br><span class="line">            w=NextAdjVertex(g,v,w);<span class="comment">//求v相对于w的下一个邻接点</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="图的应用"><a href="#图的应用" class="headerlink" title="图的应用"></a>图的应用</h2><h3 id="图的连通性问题"><a href="#图的连通性问题" class="headerlink" title="图的连通性问题"></a>图的连通性问题</h3><ol>
+<li><p>深度优先找出从顶点u到v的简单路径</p>
+<p>基本思路：设置一个记录搜索线路的数组pre[n],<code>pre[j]=i</code>表示从vi到邻接点vj的边；</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *pre;</span><br><span class="line"><span class="type">void</span> <span class="title function_">one_path</span><span class="params">(Graph *G,<span class="type">int</span> u,<span class="type">int</span> v)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    pre=(<span class="type">int</span>*)<span class="built_in">malloc</span>(G-&gt;vexnum*<span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;G-&gt;vexnum;i++)</span><br><span class="line">        pre[i]=<span class="number">-1</span>;<span class="comment">//初始化，全置于空</span></span><br><span class="line">    pre[u]=<span class="number">-2</span>;<span class="comment">//将pre[u]置为-2，表示初始点u已经被访问了，并且u没有前驱</span></span><br><span class="line">    DFS_path(G,u,v);<span class="comment">//用深度优先搜索找一条从u到v的简单路径</span></span><br><span class="line">    <span class="built_in">free</span>(pre);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">DFS_path</span><span class="params">(Graph *G,<span class="type">int</span> u,<span class="type">int</span> v)</span>&#123;</span><br><span class="line">    <span class="type">int</span> j;</span><br><span class="line">    <span class="keyword">for</span>(j=firstadj(G,u);j&gt;=<span class="number">0</span>;j=nextadj(G,u,j))&#123;<span class="comment">//遍历u的邻接点</span></span><br><span class="line">        <span class="keyword">if</span>(pre[j]==<span class="number">-1</span>)&#123; <span class="comment">//如果该结点没有走过</span></span><br><span class="line">            pre[j]=u;</span><br><span class="line">            <span class="keyword">if</span>(j==v)&#123;</span><br><span class="line">                print_path(pre,v);</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(DFS_path(G,j,v))<span class="comment">//di&#x27;g</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>图的生成树和最小生成树</p>
+<ul>
+<li><h4 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h4></li>
+<li><p>方法：1.prim算法——加点法；2.算法思想：将所有结点分为已走过U和未走过V-U两个部分，找到连接U和V-U的最小边，不形成回路;3.时间复杂度为O(n^2)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> adjvex;</span><br><span class="line">    <span class="type">int</span> lowcost;</span><br><span class="line">&#125;closedge[MAX_VERTEX_NUM];<span class="comment">//该数组用于记录所有与v邻接的、从已走过的结点到v结点的所有边中的最小边的信息；将顶点标记已经走过：将closedge[v].lowcost=0</span></span><br><span class="line"><span class="comment">//从 u顶点出发，按prim算法构造连通网gn的最小生成树，并输出生成树的每条边</span></span><br><span class="line">MiniSpantTree_Prim(AdjMartrix gn,<span class="type">int</span> u)&#123;</span><br><span class="line">    <span class="comment">//u结点已经走过，现在将它标记：</span></span><br><span class="line">    closedge[u].lowacost=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;gn.vexnum;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i!=u)&#123; <span class="comment">//对V-U中的顶点i，初始化closedge[i]，因为现在U中只有u一i个结点，所以带入u的出度</span></span><br><span class="line">            closedge[i].adjvex=u;</span><br><span class="line">            closedge[i].lowcost=gn.arcs[u][i].adj;  </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> e=<span class="number">1</span>;e&lt;=gn.vexnum<span class="number">-1</span>;e++)&#123;</span><br><span class="line">        v=Minium(closedge);<span class="comment">//找到当前最小边（u，v），</span></span><br><span class="line">        u=closedge[v].adjvex;<span class="comment">//u属于U</span></span><br><span class="line">        print(u,v);<span class="comment">//输出函数，输出边</span></span><br><span class="line">        closedge[v].lowcost=<span class="number">0</span>;<span class="comment">//将顶点v纳入U集合</span></span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;vexnum;i++)&#123; <span class="comment">//在顶点 v并入U之后，更新closedge[i],此操作后续将影响u</span></span><br><span class="line">            <span class="keyword">if</span>(gn.arcs[v][i].adj&lt;closedge[i].lowcost)&#123;</span><br><span class="line">                closedge[i].lowcost=gn.arcs[v][i].adj；</span><br><span class="line">                closedge[i].adjvex=v;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h4></li>
+<li><p>方法：1.加边法</p>
+</li>
+<li><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> no;<span class="comment">//顶点编号</span></span><br><span class="line">    InfoType info;</span><br><span class="line">&#125;VertexType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">   <span class="type">int</span> edges[MAX_VERTEX_NUM][MAX_VERTEX_NUM];<span class="comment">//邻接矩阵</span></span><br><span class="line">    <span class="type">int</span> n,e;<span class="comment">//顶点数，边数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> u;<span class="comment">//边的起始顶点</span></span><br><span class="line">    <span class="type">int</span> v;<span class="comment">//边的终止顶点</span></span><br><span class="line">    <span class="type">int</span> w;<span class="comment">//边的权值</span></span><br><span class="line">&#125;Edge;</span><br><span class="line">Edge E[MAX_VERTEX_NUM];<span class="comment">//用于存放图中所有的边</span></span><br><span class="line"><span class="type">void</span>  <span class="title function_">kruskal</span><span class="params">(MatGraph g)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i,j,u1,u2,sn1,sn2,k;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h4></li>
+<li><p>prim适用于稠密图，kruskal适用于稀疏图</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="有向无环图的应用"><a href="#有向无环图的应用" class="headerlink" title="有向无环图的应用"></a>有向无环图的应用</h3><ol>
+<li><p>拓扑排序（Topological Sort）</p>
+<ul>
+<li><p>拓扑序列：G的顶点序列{V1，V2，V3,…,Vn}中，任意两个顶点顶点Vi，Vj，在G中有一条从Vi到Vj的路径，则在序列中Vi必须排列在Vj之前</p>
+</li>
+<li><p>拓扑排序：寻找拓扑序列的过程</p>
+</li>
+<li><p>拓扑排序：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法：</span></span><br><span class="line"><span class="comment">//1.在AOV网中选取一个没有前驱结点的顶点V开始遍历</span></span><br><span class="line"><span class="comment">//2.将此结点和所有以它为起点的边删除</span></span><br><span class="line"><span class="comment">//3.重复，知道G中不再有没有前驱结点的顶点</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//基于邻接表的存储结构，设置一个存放各个顶点的入度的数组indegree[]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ANode</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> adjvex;<span class="comment">//该边终点的顶点编号</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ANode</span> *<span class="title">nextarc</span>;</span><span class="comment">//指向下一条边的指针</span></span><br><span class="line">&#125;ArcNode;<span class="comment">//边结点</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    Vertex data;<span class="comment">//表头结点类型</span></span><br><span class="line">    <span class="type">int</span> count;<span class="comment">//顶点入度数量</span></span><br><span class="line">    ArcNode *firstarc;<span class="comment">//存放顶点的入度</span></span><br><span class="line">&#125;VNode;<span class="comment">//顶点结点</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    VNode adjlist[MAXV];<span class="comment">//邻接表</span></span><br><span class="line">    <span class="type">int</span> n,e;<span class="comment">//结点数n和边数e</span></span><br><span class="line">&#125;AdjGraph;  <span class="comment">//图</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">TopoSort</span><span class="params">(AdjGraph *G)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    <span class="type">int</span> Stack[MAXV],top=<span class="number">-1</span>;</span><br><span class="line">    ArcNode *p;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;G-&gt;n;i++)</span><br><span class="line">        G-&gt;adjlist[i].count=<span class="number">0</span>;<span class="comment">//将所有结点的入度初始值设置为0</span></span><br><span class="line">    <span class="keyword">for</span>(i=-;i&lt;G-&gt;n;i++)&#123;</span><br><span class="line">        p=G-&gt;adjlist[i].frstarc;</span><br><span class="line">        <span class="keyword">while</span>(p!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            G-&gt;adjlist[p-&gt;adjvex].count++;</span><br><span class="line">            p=p-&gt;nextarc;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;G-&gt;n;i++)</span><br><span class="line">        <span class="keyword">if</span>(G-&gt;adjlist[i].count==<span class="number">0</span>)&#123; <span class="comment">//将入度为0的顶点进栈</span></span><br><span class="line">            top++;</span><br><span class="line">            Stack[top]=i</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">while</span>(top&gt;<span class="number">-1</span>)&#123;</span><br><span class="line">        i=Stack[top];</span><br><span class="line">        top--;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,i);</span><br><span class="line">        p=G-&gt;adjlist[i].firstarc;</span><br><span class="line">        <span class="keyword">while</span>(p!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            j=p-&gt;adjvex;</span><br><span class="line">            G-&gt;adjlist[j].count--;</span><br><span class="line">            <span class="keyword">if</span>(G-&gt;adjlist[j].count==<span class="number">0</span>)&#123;</span><br><span class="line">                top++;</span><br><span class="line">                Stack[top]=j;</span><br><span class="line">            &#125;</span><br><span class="line">            p=p-&gt;nextarc;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>关键路径</p>
+<ul>
+<li><p>AOE网：用顶点表示活动，弧表示活动间的优先关系的有向无环图</p>
+</li>
+<li><p>源点：存在唯一的、入度为0的顶点；汇点：存在唯一的、出度为0的顶点</p>
+</li>
+<li><p>关键路径：从源点到汇点 最长路径 的长度即为完成整个工程任务所需要的时间，该路径成为关键场长度</p>
+</li>
+<li><img src="/images/blog_images/Basic_Algorithms/37.png" style="zoom:50%;" />
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//P245</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">CriticalPath</span><span class="params">(adjlist G)</span>&#123;</span><br><span class="line">    ArcNode *p;</span><br><span class="line">    <span class="type">int</span> i,j,k,dut,ei.li;</span><br><span class="line">    <span class="type">char</span> tag</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>最短路径</p>
+<ul>
+<li><p>求某一顶点到其他各个顶点的最短路径</p>
+</li>
+<li><p><strong>迪杰斯特拉</strong>算法（加点法）：BV1zz4y1m7Nq</p>
+</li>
+<li><p>该算法按照最短路径长度的递增顺序产生一点到其余各点的所有最短路径</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Dijkstra</span><span class="params">(MatGraph g,<span class="type">int</span> v)</span>&#123; <span class="comment">//记住v是起始顶点</span></span><br><span class="line">    <span class="type">int</span> dist[MAXV],path[MAXV];<span class="comment">//dist[j]表示源点-&gt;j的最短路径；path[j]表示源点-&gt;j的最短路径中j的前一个顶点</span></span><br><span class="line">    <span class="type">int</span> s[MAXV];<span class="comment">//s用于标记结点是否标记走过</span></span><br><span class="line">    <span class="type">int</span> mindis,u;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;g.n;i++)&#123;</span><br><span class="line">        dist[i]=g.edges[v][i];</span><br><span class="line">        s[i]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(g,edgds[v][i]&lt;INFINITE)<span class="comment">//当v到i有边时</span></span><br><span class="line">            path[i]=v;</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//当不存在边时</span></span><br><span class="line">            path[i]=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    s[v]=<span class="number">1</span>;<span class="comment">//将v放入s中</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;g.n;i++)&#123;</span><br><span class="line">        mindis=INF;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;g.n;j++)&#123; <span class="comment">//找到下一个最小边的另一个端点</span></span><br><span class="line">            <span class="keyword">if</span>(s[j]==<span class="number">0</span>&amp;&amp;dist[j]&lt;mindis)&#123;<span class="comment">//j结点没有走过并且源点到j的路径小于mindis</span></span><br><span class="line">                u=j;<span class="comment">//下一个走的结点是u</span></span><br><span class="line">                mindis=dist[j];<span class="comment">//更新最小路径mindis为dist[j]</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        s[u]=<span class="number">1</span>;<span class="comment">//将端点u放进已走过的数组</span></span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;g.n;j++)<span class="comment">//调整，修改不在s中的顶点的位置</span></span><br><span class="line">            <span class="keyword">if</span>(s[j]==<span class="number">0</span>)</span><br><span class="line">                <span class="keyword">if</span>(g.edges[u][j]&lt;INF&amp;&amp;dist[u]+g.edges[u][j]&lt;dist[j])</span><br><span class="line">                    path[j]=u;</span><br><span class="line">    &#125;</span><br><span class="line">    Dispath(dist,path,g.n,v);<span class="comment">//输出最短路径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>求任意一对顶点间的最短路径</p>
+</li>
+<li><p><strong>弗洛伊德算法</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//二维数组A[i][j]表示对当前顶点i-&gt;j的最短路径长度</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Floyd</span><span class="params">(MatGraph g)</span>&#123;</span><br><span class="line">    <span class="type">int</span> A[MAXV][MAXV];<span class="comment">//A数组记录任意两点间的最短路径长度</span></span><br><span class="line">    <span class="type">int</span> path[MAXV][MAXV];<span class="comment">//path数组记录Vi-&gt;Vj之间的当前最短路径，实际上只记录了通路上一个结点，不断回溯</span></span><br><span class="line">    <span class="type">int</span> i,j,k;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;g.n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;g.n;j++)&#123;</span><br><span class="line">            A[i][j]=g.edges[i][j];</span><br><span class="line">            <span class="keyword">if</span>(i!=j&amp;&amp;g.edges[i][j]&lt;INF)<span class="comment">//如果ij邻接</span></span><br><span class="line">                path[i][j]=i;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                path[i][j]=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(k=<span class="number">0</span>;k&lt;g.n;k++)</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;g.n;i++)</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;g.n;j++)</span><br><span class="line">                <span class="keyword">if</span>(A[i][j]&gt;A[i][k]+A[k][j])&#123;</span><br><span class="line">                    A[i][j]=A[i][k]+A[k][j];</span><br><span class="line">                    path[i][j]=path[k][j];<span class="comment">//修改最短路径为经过顶点k</span></span><br><span class="line">                &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/10/18/Search/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/10/18/Binary-Tree/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                © Zhang Qianyu | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+    
+
+  </body>
+</html>

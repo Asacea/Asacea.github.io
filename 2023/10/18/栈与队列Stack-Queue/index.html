@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Zhang Qianyu">
+
+
+
+
+
+
+
+<title>栈与队列Stack-Queue | space</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Space.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/tech/">tech</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/Me/">AboutMe</a>
+              </li> 
+                   
+          
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/C/">
+                            C
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/Algorithm/">
+                            Algorithm
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/data-structure/">
+                            data structure
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                栈与队列Stack-Queue
+            
+            
+        </div>
+        <span class="post-date">
+            Oct 18, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="第三章：限定性线性表——栈与队列"><a href="#第三章：限定性线性表——栈与队列" class="headerlink" title="第三章：限定性线性表——栈与队列"></a>第三章：限定性线性表——栈与队列</h2><h3 id="顺序栈"><a href="#顺序栈" class="headerlink" title="顺序栈"></a>顺序栈</h3><ol>
+<li><p>存储结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> Stack_Size 50</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    StackElementType elem[Stack_Size];</span><br><span class="line">    <span class="type">int</span> top;   <span class="comment">//存放栈顶元素的下标，top=-1为空栈</span></span><br><span class="line">&#125;SeqStack;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基本操作：</p>
+<p><code>#define TRUE 1;</code></p>
+<p><code>#define FALSE 0;</code></p>
+<ul>
+<li><p>初始化：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitStack</span><span class="params">(SeqStack *S)</span></span><br><span class="line">&#123;</span><br><span class="line">    S-&gt;top=<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>判断</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">isFull</span><span class="params">(SeqStack *S)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> S-&gt;top==Stack_Size<span class="number">-1</span> ? TRUE : FALSE;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">bool</span> <span class="title function_">isEmpty</span><span class="params">(SeqStack *S)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> S-&gt;top==<span class="number">-1</span> ? TRUE : FALSE; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>进栈和出栈</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Push</span><span class="params">(SeqStack *S,StackElementType x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(isFull(S))</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    S-&gt;top++;</span><br><span class="line">    S-&gt;elem[S-&gt;top]=x;</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">Pop</span><span class="params">(SeqStack *S,StackElementType *x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(isEmpty(S))</span><br><span class="line">            <span class="keyword">return</span> FALSE;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        *x=S-&gt;elem[S-&gt;top];</span><br><span class="line">        S-&gt;top--;</span><br><span class="line">        <span class="keyword">return</span> TRUE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>两栈共享技术</p>
+<img src="/images/blog_images/Basic_Algorithms/7.png" style="zoom:32%;" />
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> M 100</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    StackElementType Stack[M];</span><br><span class="line">    StackElementType top[<span class="number">2</span>];</span><br><span class="line">&#125;DqStack;</span><br><span class="line"><span class="type">void</span> <span class="title function_">InitStack</span><span class="params">(DqStack *S)</span></span><br><span class="line">&#123;</span><br><span class="line">    S-&gt;top[<span class="number">0</span>]=<span class="number">-1</span>;</span><br><span class="line">    S-&gt;top[<span class="number">1</span>]=M;   <span class="comment">//表示空栈</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h3 id="链栈"><a href="#链栈" class="headerlink" title="链栈"></a>链栈</h3><ol>
+<li><p>结构:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    StackElementType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;LinkStackNode,*LinkStack;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>始终有一个栈顶指针top,指向当前栈顶元素的头结点</strong></li>
+<li>若<code>top-&gt;next==NULL</code>，则栈空</li>
+<li>链栈不会溢出</li>
+</ul>
+</li>
+<li><p>栈操作</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Push</span><span class="params">(LinkStack top,StackElementType x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//头插入</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Pop</span><span class="params">(LinkStack top,StackElementType *x)</span><span class="comment">//取头元素</span></span><br><span class="line">&#123;</span><br><span class="line">    LinkStackNode *temp;</span><br><span class="line">    temp=top-&gt;next;</span><br><span class="line">    <span class="keyword">if</span>(temp==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    top-&gt;next=temp-&gt;next;</span><br><span class="line">    *x=temp-&gt;data;</span><br><span class="line">    <span class="built_in">free</span>(temp);</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">GetTop</span><span class="params">(LinkStack S,StackElementType *x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S-&gt;top==<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        *x=S-&gt;elem[S-&gt;top];</span><br><span class="line">        <span class="keyword">return</span> TRUE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>多栈运算</p>
+<p>将多个链栈的栈顶指针放在一个一维数组里面来统一管理</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> M 10</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    StackElementType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;LinkStackNode,*LinkStack;</span><br><span class="line">LinkStack top[M];</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><h4 id="括号匹配问题"><a href="#括号匹配问题" class="headerlink" title="括号匹配问题"></a>括号匹配问题</h4><ul>
+<li><p>逻辑：用栈读入每一个字符。如果是左括号就直接入栈；如果是右括号，且与当前左括号匹配，则将左括号出栈，不匹配则不符合要求；最终读完要求栈为空</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Match</span><span class="params">(<span class="type">char</span> ch,<span class="type">char</span> temp)</span></span><br><span class="line">&#123;</span><br><span class="line">    reurn ch==temp ? TRUE : FALSE;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">BracketMatch</span><span class="params">(<span class="type">char</span> *str)</span></span><br><span class="line">&#123;</span><br><span class="line">    SeqStack *S;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">char</span> ch;</span><br><span class="line">    InitStack(S);</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;str[i]!=<span class="string">&#x27;\0&#x27;</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">switch</span>(str[i])</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;(&#x27;</span>:<span class="keyword">case</span> <span class="string">&#x27;[&#x27;</span>:<span class="keyword">case</span> <span class="string">&#x27;&#123;&#x27;</span>:</span><br><span class="line">                Push(S,str[i]);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;)&#x27;</span>:<span class="keyword">case</span> <span class="string">&#x27;]&#x27;</span>:<span class="keyword">case</span> <span class="string">&#x27;&#125;&#x27;</span>:</span><br><span class="line">                <span class="keyword">if</span>(isEmpty(S))</span><br><span class="line">                &#123;</span><br><span class="line">                    pritnf(<span class="string">&quot;Error&quot;</span>);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    GetTop(S,&amp;ch);  <span class="comment">//读取栈顶的左括号</span></span><br><span class="line">                    <span class="keyword">if</span>(Match(ch,str[i]))  <span class="comment">//比较是否匹配</span></span><br><span class="line">                        Pop(S,&amp;ch);    <span class="comment">//如果匹配，则出栈</span></span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">&quot;Error&quot;</span>);</span><br><span class="line">                        <span class="keyword">return</span> ;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(isEmpty(S))</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Yes&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Error&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="表达式求值-无括号"><a href="#表达式求值-无括号" class="headerlink" title="表达式求值(无括号)"></a>表达式求值(无括号)</h4><ul>
+<li>考虑因素：</li>
+</ul>
+<ol>
+<li>从左至右依次读取数和运算符</li>
+<li>运算符的优先级</li>
+<li>特殊运算符：^为幂运算，#是表达式结束符</li>
+</ol>
+<ul>
+<li><p>算法逻辑：</p>
+<ol>
+<li>规定运算符的优先级表</li>
+<li>设置两个栈：OVS运算数栈，OPTR运算符栈</li>
+<li>从左至右读入，<ul>
+<li>遇到运算数：进入运算数栈</li>
+<li>遇到运算符，比较优先级<ol>
+<li>当前运算符&gt;OPTR栈顶运算符，则当前运算符进栈</li>
+<li>当前运算符&lt;&#x3D;OPTR栈顶运算符，则OPTR出栈一次，得到运算符$；OVS出栈两次，得到运算数a,b；进行运算后得到数t,将t入栈</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>图解：</p>
+</li>
+<li><img src="/images/blog_images/Basic_Algorithms/8.jpg" style="zoom:20%;" />
+</li>
+<li><pre><code class="c">int ExpEvaluation()
+&#123;
+    SeqStack OPTR,OVS;
+    char n,a,b,v;
+    char ch,op;
+    InitStack(&amp;OPTR);     //1
+    InitStack(&amp;OVS);
+    Push(&amp;OPTR,&#39;#&#39;);     //push(OPTR)2
+    printf(&quot;input an expression(Ending with =):&quot;);
+    ch=getchar();
+    while(ch!=&#39;#&#39;||GetTop(&amp;OPTR)!=&#39;#&#39;)  //3
+    &#123;
+        if(!In(ch,OPSet))   //4
+        &#123;
+            n=GetNumber(ch);   //5
+            Push(&amp;OVS,n);     //6
+            ch=getchar();
+        &#125;
+        else
+            switch(Compare(ch,GetTop(&amp;OPTR)))  //7
+            &#123;
+                case  &#39;&gt;&#39;:
+                    Push(&amp;OPTR,ch);
+                    ch=getchar();
+                    break;
+                case &#39;=&#39;:
+                case &#39;&lt;&#39;:
+                    Pop(&amp;OPTR,&amp;op);        //8
+                    Pop(&amp;OVS,&amp;a);
+                    Pop(&amp;OVS,&amp;b);
+                    v=Execute(a,op,b);        //9
+                    Push(&amp;OVS,v);
+                    break;
+            &#125;
+    &#125;
+    v=GetTop(&amp;OVS);
+    return v;
+&#125;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">  注意c语言里面的int和char 类型的相似性</span><br><span class="line">  </span><br><span class="line">  [完整代码]: D:\Alearning\c2.0\dataStructuresInC\textbook\Stack\new.c</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">#### 表达式求值（含括号）</span><br><span class="line"></span><br><span class="line">- 基本逻辑与无括号相似，主要区别是优先级处理和循环结构</span><br><span class="line"></span><br><span class="line">#### 栈与递归的实现</span><br><span class="line"></span><br><span class="line">### 队列</span><br><span class="line"></span><br><span class="line">1. 结构：两个指针，一个指向队头，一个指向队尾</span><br><span class="line"></span><br><span class="line">   ```c </span><br><span class="line">   typedef struct Node</span><br><span class="line">   &#123;</span><br><span class="line">       QueueElementType data;</span><br><span class="line">       struct Node *next;</span><br><span class="line">   &#125;LinkQueueNode;</span><br><span class="line">   typedef struct</span><br><span class="line">   &#123;</span><br><span class="line">       LinkQueueNode *front;</span><br><span class="line">       LinkQueueNode *rear;</span><br><span class="line">   &#125;LinkQueue;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+<ol start="2">
+<li><p>基本操作：</p>
+<ul>
+<li><p>链队列初始化:注意第一个结点不存数据</p>
+<img src="/images/blog_images/Basic_Algorithms/9.jpg" style="zoom:13%;" />
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">InitQueue</span><span class="params">(LinkQueue *Q)</span></span><br><span class="line">&#123;</span><br><span class="line">    Q-&gt;front=(LinkQueueNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LinkQueueNode));</span><br><span class="line">    <span class="keyword">if</span>(Q-&gt;front!=<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Q-&gt;rear=Q-&gt;front;</span><br><span class="line">        Q-&gt;front-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> TRUE;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>入队操作:只能在队尾加入结点</p>
+<img src="/images/blog_images/Basic_Algorithms/10.jpg" style="zoom:16%;" />
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">EnterQueue</span><span class="params">(LinkQueue *Q,QueueElementType x)</span></span><br><span class="line">&#123;</span><br><span class="line">    LinkQueueNode *newNode;</span><br><span class="line">    newNode=(LinkQueueNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LinkQueueNode));</span><br><span class="line">    <span class="keyword">if</span>(newNode!=<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        newNode-&gt;data=x;</span><br><span class="line">        newNode-&gt;next=<span class="literal">NULL</span>;  <span class="comment">//(1)</span></span><br><span class="line">        Q-&gt;rear-&gt;next=newNode;   <span class="comment">//(2)</span></span><br><span class="line">        Q-&gt;rear=newNode;       <span class="comment">//(3)</span></span><br><span class="line">        <span class="keyword">return</span> TRUE;</span><br><span class="line">    &#125;</span><br><span class="line">    retunr FALSE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>出队操作：</p>
+<img src="/images/blog_images/Basic_Algorithms/11.jpg" style="zoom:19%;" />
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">DeleteQueue</span><span class="params">(LinkQueue *Q,QueueElementType *x)</span></span><br><span class="line">&#123;</span><br><span class="line">    LinkQueueNode *p;</span><br><span class="line">    <span class="keyword">if</span>(Q-&gt;front==Q-&gt;rear)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line">    p=Q-&gt;front-&gt;next;     <span class="comment">//(1)</span></span><br><span class="line">    Q-&gt;front-&gt;next=p-&gt;next;   <span class="comment">//(2)</span></span><br><span class="line">    <span class="keyword">if</span>(Q-&gt;rear==p)</span><br><span class="line">    &#123;</span><br><span class="line">        Q-&gt;rear=Q-&gt;front;</span><br><span class="line">    &#125;</span><br><span class="line">    *x=p-&gt;data;</span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h3 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h3><ol>
+<li><p>要点：</p>
+<ol>
+<li>用数组存储数据，并且将他看作是一个环状的空间</li>
+<li>规定最后一个单元的后继为第一个单元，即<code>Queue[MAXSIZE-1]</code>的下一个是<code>Queue[0]</code></li>
+<li>实现方法：尾指针<code>rear=(rear+1)%MAXSIZE</code>,头指针<code>front=(front+1)%MAXSIZE</code></li>
+</ol>
+</li>
+<li><p>储存方式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 10</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    QueueElementType element[MAXSIZE];</span><br><span class="line">    <span class="type">int</span> front;</span><br><span class="line">    <span class="type">int</span> rear;</span><br><span class="line">&#125;SeqQueue; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基本操作</p>
+<ul>
+<li><p>初始化:空</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitQueue</span><span class="params">(SeqQueue *Q)</span></span><br><span class="line">&#123;</span><br><span class="line">    Q-&gt;front=<span class="number">0</span>;</span><br><span class="line">    Q-&gt;rear=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>循环队列的入队操作（放入尾部）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">EnterQueue</span><span class="params">(SeqQueue *Q,QueueElementType x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>((Q-&gt;rear+<span class="number">1</span>)%MAXSIZE==Q-&gt;front)   <span class="comment">//尾指针追上头指针，已满</span></span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    Q-&gt;element[Q-&gt;rear+<span class="number">1</span>]=x;</span><br><span class="line">    Q-&gt;rear=(Q-&gt;rear+<span class="number">1</span>)%MAXSIZE;</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>循环列表的出队操作(删除头元素)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">DeleteQueue</span><span class="params">(SeqQueue *Q,QueueElementType *x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(Q-&gt;front==Q-&gt;rear)</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    *x=Q-&gt;element[Q-&gt;front];</span><br><span class="line">    Q-&gt;front=(Q-&gt;front+<span class="number">1</span>)%MAXSIZE;</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还有一种处理假溢出的方法：添加一个标志量tag</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="应用（自学）"><a href="#应用（自学）" class="headerlink" title="应用（自学）"></a>应用（自学）</h4><ol>
+<li><p>打印杨辉三角</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">YangHuiTriangle</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    SeqQueue Q;</span><br><span class="line">    InitQueue(&amp;Q);</span><br><span class="line">    EnterQueue(&amp;Q,<span class="number">1</span>);</span><br><span class="line">    <span class="type">int</span> n,i,temp,x;</span><br><span class="line">    <span class="keyword">for</span>(n=<span class="number">2</span>;n&lt;=N;n++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        EnterQueue(&amp;Q,<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n<span class="number">-2</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            DeleteQueue(&amp;Q,&amp;temp);<span class="comment">//取出当前第一位，并将front移动到原来的第二，并赋值给temp</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,temp);</span><br><span class="line">            GetHead(Q,&amp;x);  <span class="comment">//得到当前的第一位，即原来的第二位</span></span><br><span class="line">            temp=temp+x;  <span class="comment">//第一+第二</span></span><br><span class="line">            EnterQueue(&amp;Q,temp);  <span class="comment">//将新的存入尾部</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//这一行最后一个元素和上一行一样都是1</span></span><br><span class="line">        DeleteQueue(&amp;Q,&amp;x);<span class="comment">//目的有，使front移动至新的一行的开头</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,x);</span><br><span class="line">        EnterQueue(&amp;Q,<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    <span class="keyword">while</span>(!IsEmpty(Q))</span><br><span class="line">    &#123;</span><br><span class="line">        DeleteQueue(&amp;Q,&amp;x);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>键盘缓冲区</p>
+</li>
+</ol>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/10/18/String/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/10/18/%E7%BA%BF%E6%80%A7%E8%A1%A8LinearList/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                © Zhang Qianyu | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+    
+
+  </body>
+</html>
